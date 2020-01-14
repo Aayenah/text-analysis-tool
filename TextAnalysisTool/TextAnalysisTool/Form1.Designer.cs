@@ -25,77 +25,135 @@
         private void InitializeComponent() {
             this.browseButton = new System.Windows.Forms.Button();
             this.pathTextBox = new System.Windows.Forms.TextBox();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.detailsGroup = new System.Windows.Forms.GroupBox();
+            this.statsGroup = new System.Windows.Forms.GroupBox();
+            this.unqWordLabel = new System.Windows.Forms.Label();
+            this.loadGroup = new System.Windows.Forms.GroupBox();
+            this.filenameLabel = new System.Windows.Forms.Label();
+            this.mainGroup = new System.Windows.Forms.GroupBox();
+            this.wordsListBox = new System.Windows.Forms.ListBox();
+            this.wordsListLabel = new System.Windows.Forms.Label();
+            this.statsGroup.SuspendLayout();
+            this.loadGroup.SuspendLayout();
+            this.mainGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(543, 12);
+            this.browseButton.Location = new System.Drawing.Point(350, 29);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(75, 23);
             this.browseButton.TabIndex = 0;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
             // pathTextBox
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(202, 13);
+            this.pathTextBox.Location = new System.Drawing.Point(9, 30);
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.Size = new System.Drawing.Size(335, 20);
             this.pathTextBox.TabIndex = 1;
             // 
-            // searchTextBox
-            // 
-            this.searchTextBox.Location = new System.Drawing.Point(317, 120);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(220, 20);
-            this.searchTextBox.TabIndex = 2;
-            // 
             // statusLabel
             // 
             this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(199, 36);
+            this.statusLabel.Location = new System.Drawing.Point(6, 53);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(75, 13);
             this.statusLabel.TabIndex = 3;
             this.statusLabel.Text = "No file loaded.";
             // 
-            // button1
+            // statsGroup
             // 
-            this.button1.Location = new System.Drawing.Point(543, 119);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.statsGroup.Controls.Add(this.unqWordLabel);
+            this.statsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statsGroup.Location = new System.Drawing.Point(12, 12);
+            this.statsGroup.Name = "statsGroup";
+            this.statsGroup.Size = new System.Drawing.Size(185, 426);
+            this.statsGroup.TabIndex = 5;
+            this.statsGroup.TabStop = false;
+            this.statsGroup.Text = "Word Stats";
             // 
-            // detailsGroup
+            // unqWordLabel
             // 
-            this.detailsGroup.Location = new System.Drawing.Point(202, 197);
-            this.detailsGroup.Name = "detailsGroup";
-            this.detailsGroup.Size = new System.Drawing.Size(200, 190);
-            this.detailsGroup.TabIndex = 5;
-            this.detailsGroup.TabStop = false;
-            this.detailsGroup.Text = "Word Information";
+            this.unqWordLabel.AutoSize = true;
+            this.unqWordLabel.Location = new System.Drawing.Point(7, 45);
+            this.unqWordLabel.Name = "unqWordLabel";
+            this.unqWordLabel.Size = new System.Drawing.Size(72, 13);
+            this.unqWordLabel.TabIndex = 0;
+            this.unqWordLabel.Text = "Unique words";
+            // 
+            // loadGroup
+            // 
+            this.loadGroup.Controls.Add(this.filenameLabel);
+            this.loadGroup.Controls.Add(this.statusLabel);
+            this.loadGroup.Controls.Add(this.browseButton);
+            this.loadGroup.Controls.Add(this.pathTextBox);
+            this.loadGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadGroup.Location = new System.Drawing.Point(202, 12);
+            this.loadGroup.Name = "loadGroup";
+            this.loadGroup.Size = new System.Drawing.Size(586, 92);
+            this.loadGroup.TabIndex = 6;
+            this.loadGroup.TabStop = false;
+            this.loadGroup.Text = "Load File";
+            // 
+            // filenameLabel
+            // 
+            this.filenameLabel.AutoSize = true;
+            this.filenameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filenameLabel.Location = new System.Drawing.Point(109, 53);
+            this.filenameLabel.Name = "filenameLabel";
+            this.filenameLabel.Size = new System.Drawing.Size(64, 13);
+            this.filenameLabel.TabIndex = 4;
+            this.filenameLabel.Text = "{filename}";
+            this.filenameLabel.Visible = false;
+            // 
+            // mainGroup
+            // 
+            this.mainGroup.Controls.Add(this.wordsListLabel);
+            this.mainGroup.Controls.Add(this.wordsListBox);
+            this.mainGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainGroup.Location = new System.Drawing.Point(203, 110);
+            this.mainGroup.Name = "mainGroup";
+            this.mainGroup.Size = new System.Drawing.Size(585, 328);
+            this.mainGroup.TabIndex = 6;
+            this.mainGroup.TabStop = false;
+            // 
+            // wordsListBox
+            // 
+            this.wordsListBox.FormattingEnabled = true;
+            this.wordsListBox.Location = new System.Drawing.Point(8, 33);
+            this.wordsListBox.Name = "wordsListBox";
+            this.wordsListBox.Size = new System.Drawing.Size(122, 277);
+            this.wordsListBox.TabIndex = 5;
+            // 
+            // wordsListLabel
+            // 
+            this.wordsListLabel.AutoSize = true;
+            this.wordsListLabel.Location = new System.Drawing.Point(6, 16);
+            this.wordsListLabel.Name = "wordsListLabel";
+            this.wordsListLabel.Size = new System.Drawing.Size(75, 13);
+            this.wordsListLabel.TabIndex = 5;
+            this.wordsListLabel.Text = "Unique Words";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.detailsGroup);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.statusLabel);
-            this.Controls.Add(this.searchTextBox);
-            this.Controls.Add(this.pathTextBox);
-            this.Controls.Add(this.browseButton);
+            this.Controls.Add(this.mainGroup);
+            this.Controls.Add(this.loadGroup);
+            this.Controls.Add(this.statsGroup);
             this.Name = "Form1";
             this.Text = "Text Analysis Tool";
+            this.statsGroup.ResumeLayout(false);
+            this.statsGroup.PerformLayout();
+            this.loadGroup.ResumeLayout(false);
+            this.loadGroup.PerformLayout();
+            this.mainGroup.ResumeLayout(false);
+            this.mainGroup.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -103,10 +161,14 @@
 
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.TextBox pathTextBox;
-        private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label statusLabel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox detailsGroup;
+        private System.Windows.Forms.GroupBox statsGroup;
+        private System.Windows.Forms.Label unqWordLabel;
+        private System.Windows.Forms.GroupBox loadGroup;
+        private System.Windows.Forms.Label filenameLabel;
+        private System.Windows.Forms.GroupBox mainGroup;
+        private System.Windows.Forms.ListBox wordsListBox;
+        private System.Windows.Forms.Label wordsListLabel;
     }
 }
 

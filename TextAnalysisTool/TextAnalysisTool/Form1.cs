@@ -13,5 +13,17 @@ namespace TextAnalysisTool {
         public Form1() {
             InitializeComponent();
         }
+
+        OpenFileDialog ofd = new OpenFileDialog();
+        private void browseButton_Click(object sender, EventArgs e) {
+            ofd.Filter = "Text Files|*.txt";
+
+            if(ofd.ShowDialog() == DialogResult.OK) {
+                pathTextBox.Text = ofd.FileName;
+                filenameLabel.Text = ofd.SafeFileName;
+                statusLabel.Text = "Successfully loaded: ";
+                filenameLabel.Visible = true;
+            }
+        }
     }
 }
