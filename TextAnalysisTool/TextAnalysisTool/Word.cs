@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
-    class Word : IComparable<Word>{
+    class Word : IComparable {
         private string word = "";
         private int occurrences = 0;
         LinkedList<Location> locations = new LinkedList<Location>();
@@ -31,10 +31,13 @@ namespace TextAnalysisTool {
             get { return occurrences; }
         }
 
-        
 
-        public int CompareTo(Word other) {
-            return 0;
+        public int CompareTo(object other) {
+            if(other == null) {
+                return 1;
+            }
+
+            return word.CompareTo(other.ToString());
         }
     }
 }

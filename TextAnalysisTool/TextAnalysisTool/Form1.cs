@@ -45,7 +45,7 @@ namespace TextAnalysisTool {
             return lineNumber;
         }
 
-
+        AVLTree<Word> avl = new AVLTree<Word>();
 
         private void browseButton_Click(object sender, EventArgs e) {
             ofd.Filter = "Text Files|*.txt";
@@ -68,6 +68,7 @@ namespace TextAnalysisTool {
                         int count = findCount(word2, words);
                         wordsListBox.Items.Add(word2+" | "+count+" | "+findLines(word2, allLines));
                         Word w = new Word(word2);
+                        avl.InsertItem(w);
                     }
                 }
 
@@ -91,7 +92,7 @@ namespace TextAnalysisTool {
 
 
                 //unqWordLabel.Text = wordsListBox.Items.Count.ToString();
-                unqWordLabel.Text = allLines.Length.ToString();
+                unqWordLabel.Text = avl.Count().ToString();
             }
         }
     }
