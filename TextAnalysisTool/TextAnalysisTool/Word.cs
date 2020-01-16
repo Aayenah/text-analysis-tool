@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
-    class Word {
+    class Word : IComparable<Word>{
         private string word = "";
         private int occurrences = 0;
         LinkedList<Location> locations = new LinkedList<Location>();
+
+        public Word(String word, int occurrences, LinkedList<Location> locations) {
+            this.word = word;
+            this.occurrences = occurrences;
+            this.locations = locations;
+        }
 
         public Word(String word) {
             this.word = word;
@@ -23,6 +29,12 @@ namespace TextAnalysisTool {
         public int Occurrences {
             set { occurrences = value; }
             get { return occurrences; }
+        }
+
+        
+
+        public int CompareTo(Word other) {
+            return 0;
         }
     }
 }

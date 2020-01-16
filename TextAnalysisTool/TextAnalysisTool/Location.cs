@@ -9,6 +9,10 @@ namespace TextAnalysisTool {
         private int lineNumber = 0;
         private int wordPosition = 0;
 
+        public Location(int lineNumber, int wordPosition) {
+            this.lineNumber = lineNumber;
+            this.wordPosition = wordPosition;
+        }
 
         public int LineNumber {
             set { lineNumber = value; }
