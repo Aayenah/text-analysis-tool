@@ -22,7 +22,7 @@ namespace TextAnalysisTool {
 
         public void PreOrder(Node<T> tree, ref string buffer) {
             if (tree != null) {
-                buffer += tree.Key.ToString() +"("+tree.Count+")"+ ",";
+                buffer += tree.Key.ToString() +"("+tree.Count+")"+ ", \n";
                 PreOrder(tree.Left, ref buffer);
                 PreOrder(tree.Right, ref buffer);
             }

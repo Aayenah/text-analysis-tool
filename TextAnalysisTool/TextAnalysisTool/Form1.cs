@@ -22,18 +22,31 @@ namespace TextAnalysisTool {
 
         public int countOccurences(string w, string text) {
             string word = w.ToLower();
-            string[] wordsInText = text.Split(charsToTrim);
+            string lowerText = text.ToLower();
+            string[] wordsInText = lowerText.Split(charsToTrim);
             int count = 0;
 
             for (int i = 0; i < wordsInText.Length; i++) {
                 if (word.Equals(wordsInText[i])) {
                     count++;
-                    Console.WriteLine("HEERE");
-                }
-                    
+                } 
             }
-
+            //Console.WriteLine("Count of " + word + "(" + count + ")");
             return count;
+        }
+
+        public List<string> removeDuplicates(string text) {
+            string lowerText = text.ToLower();
+            string[] wordsInText = lowerText.Split(charsToTrim);
+            List<string> newList = new List<string>();
+
+            for (int i = 0; i < wordsInText.Length; i++) {
+                if(countOccurences(wordsInText[i], lowerText) == 1) {
+                    newList.Add(wordsInText[i]);
+                }
+            }
+            Console.WriteLine("New list count: "+newList.Count);
+            return newList;
         }
 
         public string findLines(string word, string[] lines) {
@@ -70,46 +83,34 @@ namespace TextAnalysisTool {
                             Word w = new Word(word2);
                             avl.InsertItem(w);
 
-                            //if (avl.Contains(w)) {
-                            //    w.Occurrences++;
-                            //}
-
 
                             //w.Locations.AddLast(new Location(i, j));
-                            //w.Occurrences = countOccurences(w.TheWord, fileText);
-                            //w.Occurrences = avl.GetWordCount(w);
-                            //wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
+                            w.Occurrences = countOccurences(word2, fileText);
+                            w.Occurrences = avl.GetWordCount(w);
+                            wordsListBox.Items.Add(w + " (" + w.Occurrences + ")");
 
-                            if (wordsListBox.Items.ToString().Contains(word2)) {
-                                w.Occurrences++;
-                                Console.WriteLine("HELLOOOOO");
-                            }
-                            else {
-                                wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
-                            }
-
+                            //if (w.Occurrences > 1) {
+                            //    Console.WriteLine("YOOO");
+                            //    wordsListBox.Items.Remove(w.TheWord);
+                            //}
                             
 
                         }
                     }
-
-                    for (int k = 0; k < wordsListBox.Items.Count; k++) {
-                        
-                    }
                 }
 
-                
+                //removeDuplicates(fileText);
 
-                
-                
-
-                //for (int i = 0; i < allLines.Length; i++) {
-                //    words = fileText.Split(charsToTrim);
-
-                //    for (int j = 0; j < words.Length; j++) {
-                //        Word word = new Word(words[j], );
+                //bool isDuplicate = false;
+                //foreach(Word item in wordsListBox.Items) {
+                //    if (wordsListBox.Items.Contains(item)) {
+                //        item.Occurrences++;
+                //        isDuplicate = true;
                 //    }
-
+                //    else {
+                //        isDuplicate = false;
+                //    }
+                //    Console.WriteLine("Duplicate " + item + "(" + item.Occurrences + ")");
                 //}
 
 
