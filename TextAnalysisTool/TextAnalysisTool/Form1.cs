@@ -51,7 +51,8 @@ namespace TextAnalysisTool {
             return lineNumber;
         }
 
-        AVLTree<Word> avl = new AVLTree<Word>();
+        //AVLTree<Word> avl = new AVLTree<Word>();
+        WordAVL avl = new WordAVL();
 
         private void browseButton_Click(object sender, EventArgs e) {
             ofd.Filter = "Text Files|*.txt";
@@ -72,7 +73,7 @@ namespace TextAnalysisTool {
                             
                             
                             w.Locations.AddLast(new Location(i, j));
-                            w.Occurrences = countOccurences(word2, fileText);
+                            //w.Occurrences = countOccurences(word2, fileText);
                             wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
                             avl.InsertItem(w);
                         }
