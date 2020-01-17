@@ -13,22 +13,28 @@ namespace TextAnalysisTool {
     public partial class Form1 : Form {
 
         OpenFileDialog ofd = new OpenFileDialog();
-        char[] charsToTrim = { ' ', ',', '.', '?', ';', '\n'};
+        char[] charsToTrim = { ' ', ',', '.', '?', ';'};
 
 
         public Form1() {
             InitializeComponent();
         }
 
-        public int findCount(string word, string[] wordsArray) {
-            int length = wordsArray.Length;
+        public int countOccurences(string w, string text) {
+            string word = w.ToLower();
+            string[] wordsInText = text.Split(charsToTrim);
             int count = 0;
 
-            for (int i = 0; i < length; i++) {
-                if (wordsArray[i].Equals(word)) {
+            for (int i = 0; i < wordsInText.Length; i++) {
+                //Console.WriteLine("FOR: "+ line[i]);
+                // if match found increase count 
+                if (word.Equals(wordsInText[i])) {
                     count++;
+                    Console.WriteLine("HEERE");
                 }
+                    
             }
+
             return count;
         }
 
@@ -54,23 +60,25 @@ namespace TextAnalysisTool {
                 string fileName = ofd.FileName;
                 string[] allLines = File.ReadAllLines(fileName);
                 string fileText = File.ReadAllText(fileName);
-                int wordCount = 0;
-                string[] words = new string[allLines.Length];
+                string[] words = new string[50000];
 
-                foreach (string line in allLines) {
-                    words = fileText.Split(charsToTrim);
-                    
-                }
+                for (int i = 0; i < allLines.Length; i++) { //FOR
+                    words = allLines[i].Split(charsToTrim);
 
-                foreach (string word in words) {
-                    if (word != "") {
-                        string word2 = word.ToLower();
-                        int count = findCount(word2, words);
-                        wordsListBox.Items.Add(word2+" | "+count+" | "+findLines(word2, allLines));
-                        Word w = new Word(word2);
-                        avl.InsertItem(w);
+                    for (int j = 0; j < words.Length; j++) { //FOR 
+                        if (words[j] != "") {
+                            string word2 = words[j].ToLower();
+                            Word w = new Word(word2);
+                            
+                            
+                            w.Locations.AddLast(new Location(i, j));
+                            w.Occurrences = countOccurences(word2, fileText);
+                            wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
+                            avl.InsertItem(w);
+                        }
                     }
                 }
+                
 
                 //for (int i = 0; i < allLines.Length; i++) {
                 //    words = fileText.Split(charsToTrim);
@@ -82,7 +90,7 @@ namespace TextAnalysisTool {
                 //}
 
 
-
+                string output = "";
 
                 pathTextBox.Text = ofd.FileName;
                 filenameLabel.Text = ofd.SafeFileName;
@@ -90,9 +98,12 @@ namespace TextAnalysisTool {
                 filenameLabel.Visible = true;
 
 
-
                 //unqWordLabel.Text = wordsListBox.Items.Count.ToString();
                 unqWordLabel.Text = avl.Count().ToString();
+                avl.PreOrder(ref output);
+
+                
+                Console.WriteLine("PreOrder AVL: " + output);
             }
         }
     }

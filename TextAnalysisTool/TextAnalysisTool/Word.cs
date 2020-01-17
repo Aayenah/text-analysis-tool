@@ -31,6 +31,21 @@ namespace TextAnalysisTool {
             get { return occurrences; }
         }
 
+        public LinkedList<Location> Locations {
+            get {
+
+                if (locations == null) {
+                    return new LinkedList<Location>();
+                }
+
+                return locations;
+
+            }
+            set {
+                locations = value;
+            }
+        }
+
 
         public int CompareTo(object other) {
             if(other == null) {
@@ -38,6 +53,10 @@ namespace TextAnalysisTool {
             }
 
             return word.CompareTo(other.ToString());
+        }
+
+        public override string ToString() {
+            return word;//+" ("+occurrences+")";
         }
     }
 }

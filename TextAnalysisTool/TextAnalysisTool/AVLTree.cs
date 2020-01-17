@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
     class AVLTree<T> : BSTree<T> where T : IComparable {
+
+        public int occur = 0;
+
         public new void InsertItem(T item) {
             insertItem(item, ref root);
         }
@@ -21,7 +24,6 @@ namespace TextAnalysisTool {
                 insertItem(item, ref tree.Right);
             }
             else { //if equal
-                
                 (tree.Count)++;
             }
 
@@ -73,5 +75,27 @@ namespace TextAnalysisTool {
             newRoot.Right = oldRoot;
             tree = newRoot;
         }
+
+        //public int FindItemCount(T item) {
+        //    return FindItemCount(item, ref root);
+        //}
+
+        //private int FindItemCount(T item, ref Node<T> tree) {
+        //    if (tree == null) {
+        //        tree = new Node<T>(item);
+        //    }
+
+        //    else if (item.CompareTo(tree.Key) < 0) {
+        //        FindItemCount(item, ref tree.Left);
+        //    }
+        //    else if (item.CompareTo(tree.Key) > 0) {
+        //        FindItemCount(item, ref tree.Right);
+        //    }
+        //    else { //if equal
+        //        (tree.Count)++;
+        //    }
+
+        //    return tree.Count;
+        //}
     }
 }

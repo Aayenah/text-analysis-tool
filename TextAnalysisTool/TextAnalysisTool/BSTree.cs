@@ -85,7 +85,7 @@ namespace TextAnalysisTool {
 
         protected int Height(Node<T> tree) {
             if (tree == null) {
-                Console.WriteLine("Tree is empty");
+                //Console.WriteLine("Tree is empty");
                 return 0;
             }
             else {
