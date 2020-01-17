@@ -24,7 +24,7 @@ namespace TextAnalysisTool {
                 insertItem(item, ref tree.Right);
             }
             else { //if equal
-                (tree.Count)++;
+                //(tree.Count)++;
             }
 
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);

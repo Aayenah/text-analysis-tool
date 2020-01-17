@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
     class WordAVL : AVLTree<Word> {
+
         public new void InsertItem(Word item) {
             insertItem(item, ref root);
         }
@@ -21,10 +22,10 @@ namespace TextAnalysisTool {
                 insertItem(item, ref tree.Right);
             }
             else { //if equal
-                (tree.Count)++;
-                item.Occurrences++;
+                tree.Count++;
+                item.Occurrences = tree.Count;
             }
-
+            //item.Occurrences = tree.Count;
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);
 
             if (tree.BalanceFactor <= -2) {
@@ -34,6 +35,31 @@ namespace TextAnalysisTool {
                 rotateRight(ref tree);
             }
 
+        }
+
+
+        public int GetWordCount(Word item) {
+            return GetWordCount(item, ref root);
+        }
+
+        private int GetWordCount(Word item, ref Node<Word> tree) {
+            int count = 0;
+
+            if (tree == null) {
+                tree = new Node<Word>(item);
+            }
+
+            if (item.CompareTo(tree.Key) < 0) {
+                GetWordCount(item, ref tree.Left);
+            }
+            else if (item.CompareTo(tree.Key) > 0) {
+                GetWordCount(item, ref tree.Right);
+            }
+            else { //if equal
+                count++;
+            }
+
+            return count;
         }
 
         private void rotateLeft(ref Node<Word> tree) {
@@ -52,7 +78,6 @@ namespace TextAnalysisTool {
             oldRoot.Right = newRoot.Left;
             newRoot.Left = oldRoot;
 
-            // tree ?
             tree = newRoot;
         }
 

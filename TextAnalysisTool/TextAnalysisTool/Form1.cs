@@ -26,8 +26,6 @@ namespace TextAnalysisTool {
             int count = 0;
 
             for (int i = 0; i < wordsInText.Length; i++) {
-                //Console.WriteLine("FOR: "+ line[i]);
-                // if match found increase count 
                 if (word.Equals(wordsInText[i])) {
                     count++;
                     Console.WriteLine("HEERE");
@@ -70,15 +68,39 @@ namespace TextAnalysisTool {
                         if (words[j] != "") {
                             string word2 = words[j].ToLower();
                             Word w = new Word(word2);
-                            
-                            
-                            w.Locations.AddLast(new Location(i, j));
-                            //w.Occurrences = countOccurences(word2, fileText);
-                            wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
                             avl.InsertItem(w);
+
+                            //if (avl.Contains(w)) {
+                            //    w.Occurrences++;
+                            //}
+
+
+                            //w.Locations.AddLast(new Location(i, j));
+                            //w.Occurrences = countOccurences(w.TheWord, fileText);
+                            //w.Occurrences = avl.GetWordCount(w);
+                            //wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
+
+                            if (wordsListBox.Items.ToString().Contains(word2)) {
+                                w.Occurrences++;
+                                Console.WriteLine("HELLOOOOO");
+                            }
+                            else {
+                                wordsListBox.Items.Add(w + "(" + w.Occurrences + ")");
+                            }
+
+                            
+
                         }
                     }
+
+                    for (int k = 0; k < wordsListBox.Items.Count; k++) {
+                        
+                    }
                 }
+
+                
+
+                
                 
 
                 //for (int i = 0; i < allLines.Length; i++) {
@@ -99,8 +121,8 @@ namespace TextAnalysisTool {
                 filenameLabel.Visible = true;
 
 
-                //unqWordLabel.Text = wordsListBox.Items.Count.ToString();
-                unqWordLabel.Text = avl.Count().ToString();
+                unqWordLabel.Text = wordsListBox.Items.Count.ToString();
+                //unqWordLabel.Text = avl.Count().ToString();
                 avl.PreOrder(ref output);
 
                 
