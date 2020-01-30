@@ -47,16 +47,18 @@ namespace TextAnalysisTool {
         }
 
 
-        public int CompareTo(object other) {
+        public int CompareTo(object obj) {
+            Word other = (Word) obj;
+            
             if(other == null) {
                 return 1;
             }
 
-            return word.CompareTo(other.ToString());
+            return this.word.CompareTo(other.word);
         }
 
         public override string ToString() {
-            return word;//+" ("+occurrences+")";
+            return word;// +" ("+occurrences+")";
         }
     }
 }

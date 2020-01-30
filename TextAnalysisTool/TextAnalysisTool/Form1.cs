@@ -62,8 +62,8 @@ namespace TextAnalysisTool {
             return lineNumber;
         }
 
-        //AVLTree<Word> avl = new AVLTree<Word>();
-        WordAVL avl = new WordAVL();
+        AVLTree<Word> avl = new AVLTree<Word>();
+        //WordAVL avl = new WordAVL();
 
         private void browseButton_Click(object sender, EventArgs e) {
             ofd.Filter = "Text Files|*.txt";
@@ -72,47 +72,25 @@ namespace TextAnalysisTool {
                 string fileName = ofd.FileName;
                 string[] allLines = File.ReadAllLines(fileName);
                 string fileText = File.ReadAllText(fileName);
-                string[] words = new string[50000];
+                string[] words;
 
-                for (int i = 0; i < allLines.Length; i++) { //FOR
+                for (int i = 0; i < allLines.Length; i++) { //FOR EACH LINE
                     words = allLines[i].Split(charsToTrim);
 
-                    for (int j = 0; j < words.Length; j++) { //FOR 
+                    for (int j = 0; j < words.Length; j++) { //FOR EACH WORD
                         if (words[j] != "") {
-                            string word2 = words[j].ToLower();
-                            Word w = new Word(word2);
+                            string wordToLower = words[j].ToLower();
+                            Word w = new Word(wordToLower);
                             avl.InsertItem(w);
 
-
-                            //w.Locations.AddLast(new Location(i, j));
-                            w.Occurrences = countOccurences(word2, fileText);
-                            w.Occurrences = avl.GetWordCount(w);
-                            wordsListBox.Items.Add(w + " (" + w.Occurrences + ")");
-
-                            //if (w.Occurrences > 1) {
-                            //    Console.WriteLine("YOOO");
-                            //    wordsListBox.Items.Remove(w.TheWord);
-                            //}
-                            
-
+                            if (!wordsListBox.Items.Cast<Word>().Any(item => w == w)) {
+                                wordsListBox.Items.Add(w);
+                            }
                         }
                     }
                 }
 
-                //removeDuplicates(fileText);
-
-                //bool isDuplicate = false;
-                //foreach(Word item in wordsListBox.Items) {
-                //    if (wordsListBox.Items.Contains(item)) {
-                //        item.Occurrences++;
-                //        isDuplicate = true;
-                //    }
-                //    else {
-                //        isDuplicate = false;
-                //    }
-                //    Console.WriteLine("Duplicate " + item + "(" + item.Occurrences + ")");
-                //}
-
+                
 
                 string output = "";
 
@@ -128,6 +106,7 @@ namespace TextAnalysisTool {
 
                 
                 Console.WriteLine("PreOrder AVL: " + output);
+                Console.WriteLine("Nodes in tree: " + avl.Count());
             }
         }
     }

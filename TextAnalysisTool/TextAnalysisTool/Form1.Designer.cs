@@ -31,8 +31,8 @@
             this.loadGroup = new System.Windows.Forms.GroupBox();
             this.filenameLabel = new System.Windows.Forms.Label();
             this.mainGroup = new System.Windows.Forms.GroupBox();
-            this.wordsListBox = new System.Windows.Forms.ListBox();
             this.wordsListLabel = new System.Windows.Forms.Label();
+            this.wordsListBox = new System.Windows.Forms.ListBox();
             this.statsGroup.SuspendLayout();
             this.loadGroup.SuspendLayout();
             this.mainGroup.SuspendLayout();
@@ -120,14 +120,6 @@
             this.mainGroup.TabIndex = 6;
             this.mainGroup.TabStop = false;
             // 
-            // wordsListBox
-            // 
-            this.wordsListBox.FormattingEnabled = true;
-            this.wordsListBox.Location = new System.Drawing.Point(8, 33);
-            this.wordsListBox.Name = "wordsListBox";
-            this.wordsListBox.Size = new System.Drawing.Size(122, 277);
-            this.wordsListBox.TabIndex = 5;
-            // 
             // wordsListLabel
             // 
             this.wordsListLabel.AutoSize = true;
@@ -136,6 +128,14 @@
             this.wordsListLabel.Size = new System.Drawing.Size(75, 13);
             this.wordsListLabel.TabIndex = 5;
             this.wordsListLabel.Text = "Unique Words";
+            // 
+            // wordsListBox
+            // 
+            this.wordsListBox.FormattingEnabled = true;
+            this.wordsListBox.Location = new System.Drawing.Point(8, 33);
+            this.wordsListBox.Name = "wordsListBox";
+            this.wordsListBox.Size = new System.Drawing.Size(551, 277);
+            this.wordsListBox.TabIndex = 5;
             // 
             // Form1
             // 

@@ -23,7 +23,7 @@ namespace TextAnalysisTool {
             }
             else { //if equal
                 tree.Count++;
-                item.Occurrences = tree.Count;
+                //item.Occurrences = tree.Count;
             }
             //item.Occurrences = tree.Count;
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);

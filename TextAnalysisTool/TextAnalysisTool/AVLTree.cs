@@ -24,7 +24,7 @@ namespace TextAnalysisTool {
                 insertItem(item, ref tree.Right);
             }
             else { //if equal
-                //(tree.Count)++;
+                (tree.Count)++;
             }
 
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);
@@ -37,6 +37,54 @@ namespace TextAnalysisTool {
             }
 
         }
+
+
+        public int GetWordCount(T item) {
+            return GetWordCount(item, ref root);
+        }
+
+        private int GetWordCount(T item, ref Node<T> tree) {
+            int count = 0;
+
+            if (tree == null) {
+                tree = new Node<T>(item);
+            }
+
+            if (item.CompareTo(tree.Key) < 0) {
+                GetWordCount(item, ref tree.Left);
+            }
+            else if (item.CompareTo(tree.Key) > 0) {
+                GetWordCount(item, ref tree.Right);
+            }
+            else { //if equal
+                count++;
+            }
+
+            return count;
+        }
+
+        public Node<T> ContainsNode(T item) {
+            return ContainsNode(item, ref root);
+        }
+
+        private Node<T> ContainsNode(T item, ref Node<T> tree) {
+            if (tree == null) {
+                Console.WriteLine("Item (" + item + ") not found!");
+                return null;
+            }
+
+            if (item.CompareTo(tree.Key) < 0) {
+                return ContainsNode(item, ref tree.Left);
+            }
+            else if (item.CompareTo(tree.Key) > 0) {
+                return ContainsNode(item, ref tree.Right);
+            }
+            else {
+                Console.WriteLine("Item (" + item + ") found!");
+                return tree;
+            }
+        }
+
 
         private void rotateLeft(ref Node<T> tree) {
             if (tree == null) {
