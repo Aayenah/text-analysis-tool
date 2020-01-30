@@ -83,9 +83,7 @@ namespace TextAnalysisTool {
                             Word w = new Word(wordToLower);
                             avl.InsertItem(w);
 
-                            if (!wordsListBox.Items.Cast<Word>().Any(item => w == w)) {
-                                wordsListBox.Items.Add(w);
-                            }
+                            wordsListBox.Items.Add(avl.GetNode(w));
                         }
                     }
                 }

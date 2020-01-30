@@ -78,7 +78,6 @@ namespace TextAnalysisTool {
             return tree.Key;
         }
 
-
         public int Height() {
             return Height(root);
         }

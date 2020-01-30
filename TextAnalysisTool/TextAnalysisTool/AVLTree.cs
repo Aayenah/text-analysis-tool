@@ -63,21 +63,21 @@ namespace TextAnalysisTool {
             return count;
         }
 
-        public Node<T> ContainsNode(T item) {
-            return ContainsNode(item, ref root);
+        public Node<T> GetNode(T item) {
+            return GetNode(item, ref root);
         }
 
-        private Node<T> ContainsNode(T item, ref Node<T> tree) {
+        private Node<T> GetNode(T item, ref Node<T> tree) {
             if (tree == null) {
                 Console.WriteLine("Item (" + item + ") not found!");
                 return null;
             }
 
             if (item.CompareTo(tree.Key) < 0) {
-                return ContainsNode(item, ref tree.Left);
+                return GetNode(item, ref tree.Left);
             }
             else if (item.CompareTo(tree.Key) > 0) {
-                return ContainsNode(item, ref tree.Right);
+                return GetNode(item, ref tree.Right);
             }
             else {
                 Console.WriteLine("Item (" + item + ") found!");
