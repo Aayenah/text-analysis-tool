@@ -33,6 +33,9 @@
             this.mainGroup = new System.Windows.Forms.GroupBox();
             this.wordsListLabel = new System.Windows.Forms.Label();
             this.wordsListBox = new System.Windows.Forms.ListBox();
+            this.wordCountLabel = new System.Windows.Forms.Label();
+            this.editButton = new System.Windows.Forms.Button();
+            this.viewButton = new System.Windows.Forms.Button();
             this.statsGroup.SuspendLayout();
             this.loadGroup.SuspendLayout();
             this.mainGroup.SuspendLayout();
@@ -66,6 +69,7 @@
             // 
             // statsGroup
             // 
+            this.statsGroup.Controls.Add(this.wordCountLabel);
             this.statsGroup.Controls.Add(this.unqWordLabel);
             this.statsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statsGroup.Location = new System.Drawing.Point(12, 12);
@@ -78,7 +82,7 @@
             // unqWordLabel
             // 
             this.unqWordLabel.AutoSize = true;
-            this.unqWordLabel.Location = new System.Drawing.Point(7, 45);
+            this.unqWordLabel.Location = new System.Drawing.Point(7, 61);
             this.unqWordLabel.Name = "unqWordLabel";
             this.unqWordLabel.Size = new System.Drawing.Size(72, 13);
             this.unqWordLabel.TabIndex = 0;
@@ -111,6 +115,8 @@
             // 
             // mainGroup
             // 
+            this.mainGroup.Controls.Add(this.viewButton);
+            this.mainGroup.Controls.Add(this.editButton);
             this.mainGroup.Controls.Add(this.wordsListLabel);
             this.mainGroup.Controls.Add(this.wordsListBox);
             this.mainGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -134,8 +140,36 @@
             this.wordsListBox.FormattingEnabled = true;
             this.wordsListBox.Location = new System.Drawing.Point(8, 33);
             this.wordsListBox.Name = "wordsListBox";
-            this.wordsListBox.Size = new System.Drawing.Size(551, 277);
+            this.wordsListBox.Size = new System.Drawing.Size(416, 277);
             this.wordsListBox.TabIndex = 5;
+            // 
+            // wordCountLabel
+            // 
+            this.wordCountLabel.AutoSize = true;
+            this.wordCountLabel.Location = new System.Drawing.Point(7, 33);
+            this.wordCountLabel.Name = "wordCountLabel";
+            this.wordCountLabel.Size = new System.Drawing.Size(63, 13);
+            this.wordCountLabel.TabIndex = 1;
+            this.wordCountLabel.Text = "Word count";
+            // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(504, 62);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(75, 23);
+            this.editButton.TabIndex = 5;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            // 
+            // viewButton
+            // 
+            this.viewButton.Location = new System.Drawing.Point(504, 33);
+            this.viewButton.Name = "viewButton";
+            this.viewButton.Size = new System.Drawing.Size(75, 23);
+            this.viewButton.TabIndex = 6;
+            this.viewButton.Text = "View";
+            this.viewButton.UseVisualStyleBackColor = true;
+            this.viewButton.Click += new System.EventHandler(this.viewButton_Click);
             // 
             // Form1
             // 
@@ -147,6 +181,7 @@
             this.Controls.Add(this.statsGroup);
             this.Name = "Form1";
             this.Text = "Text Analysis Tool";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.statsGroup.ResumeLayout(false);
             this.statsGroup.PerformLayout();
             this.loadGroup.ResumeLayout(false);
@@ -169,6 +204,9 @@
         private System.Windows.Forms.GroupBox mainGroup;
         private System.Windows.Forms.ListBox wordsListBox;
         private System.Windows.Forms.Label wordsListLabel;
+        private System.Windows.Forms.Label wordCountLabel;
+        private System.Windows.Forms.Button viewButton;
+        private System.Windows.Forms.Button editButton;
     }
 }
 

@@ -20,34 +20,21 @@ namespace TextAnalysisTool {
             InitializeComponent();
         }
 
-        public int countOccurences(string w, string text) {
+        public int countOccurences(string w, string[] arr) {
             string word = w.ToLower();
-            string lowerText = text.ToLower();
-            string[] wordsInText = lowerText.Split(charsToTrim);
+
             int count = 0;
 
-            for (int i = 0; i < wordsInText.Length; i++) {
-                if (word.Equals(wordsInText[i])) {
+            for (int i = 0; i < arr.Length; i++) {
+                string lower = arr[i].ToLower();
+                if (word.Equals(lower)) {
                     count++;
                 } 
             }
-            //Console.WriteLine("Count of " + word + "(" + count + ")");
+            Console.WriteLine("Count of " + word + "(" + count + ")");
             return count;
         }
 
-        public List<string> removeDuplicates(string text) {
-            string lowerText = text.ToLower();
-            string[] wordsInText = lowerText.Split(charsToTrim);
-            List<string> newList = new List<string>();
-
-            for (int i = 0; i < wordsInText.Length; i++) {
-                if(countOccurences(wordsInText[i], lowerText) == 1) {
-                    newList.Add(wordsInText[i]);
-                }
-            }
-            Console.WriteLine("New list count: "+newList.Count);
-            return newList;
-        }
 
         public string findLines(string word, string[] lines) {
             int length = lines.Length;
@@ -63,7 +50,8 @@ namespace TextAnalysisTool {
         }
 
         AVLTree<Word> avl = new AVLTree<Word>();
-        //WordAVL avl = new WordAVL();
+        List<Word> myList = new List<Word>();
+        List<string> stringList = new List<string>();
 
         private void browseButton_Click(object sender, EventArgs e) {
             ofd.Filter = "Text Files|*.txt";
@@ -71,24 +59,39 @@ namespace TextAnalysisTool {
             if(ofd.ShowDialog() == DialogResult.OK) {
                 string fileName = ofd.FileName;
                 string[] allLines = File.ReadAllLines(fileName);
-                string fileText = File.ReadAllText(fileName);
-                string[] words;
+                string[] wordsArray;
 
                 for (int i = 0; i < allLines.Length; i++) { //FOR EACH LINE
-                    words = allLines[i].Split(charsToTrim);
+                    wordsArray = allLines[i].Split(charsToTrim);
 
-                    for (int j = 0; j < words.Length; j++) { //FOR EACH WORD
-                        if (words[j] != "") {
-                            string wordToLower = words[j].ToLower();
-                            Word w = new Word(wordToLower);
+                    for (int j = 0; j < wordsArray.Length; j++) { //FOR EACH WORD
+                        if (wordsArray[j] != "") {
+                            Word w = new Word(wordsArray[j].ToLower());
+                            w.Locations.AddLast(new Location(i+1, j+1));
                             avl.InsertItem(w);
-
-                            wordsListBox.Items.Add(avl.GetNode(w));
+                            myList.Add(w);
                         }
                     }
                 }
 
-                
+                foreach (Word word in myList)
+                {
+                    if (!wordsListBox.Items.Contains(word))
+                    {
+                        wordsListBox.Items.Add(word);
+                        foreach(Location loc in word.Locations)
+                        {
+                            Console.WriteLine(word+"----"+loc + " | ");
+                        }
+                    }
+                    else
+                    {
+                        //avl.GetItem(word).Locations.AddLast(new Location(7, 7));
+                    }
+                    
+                    //wordsListBox.Items.Add(word);
+                    word.Occurrences = avl.GetNode(word).Count;
+                }
 
                 string output = "";
 
@@ -97,14 +100,34 @@ namespace TextAnalysisTool {
                 statusLabel.Text = "Successfully loaded: ";
                 filenameLabel.Visible = true;
 
-
-                unqWordLabel.Text = wordsListBox.Items.Count.ToString();
-                //unqWordLabel.Text = avl.Count().ToString();
+                wordCountLabel.Text = "Word count: " + myList.Count();
+                unqWordLabel.Text = "Unique words: "+wordsListBox.Items.Count;
+                
                 avl.PreOrder(ref output);
 
                 
-                Console.WriteLine("PreOrder AVL: " + output);
-                Console.WriteLine("Nodes in tree: " + avl.Count());
+                //Console.WriteLine("PreOrder AVL: " + output);
+                //Console.WriteLine("Nodes in tree: " + avl.Count());
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewButton_Click(object sender, EventArgs e)
+        {
+            if (wordsListBox.SelectedItems.Count == 0)
+            {
+                unqWordLabel.Text = "No";
+            }
+            else
+            {
+                Word w = avl.GetItem((Word)wordsListBox.SelectedItem);
+                MessageBox.Show("Word: "+w.TheWord+
+                    "\nOccurences: "+w.Occurrences+
+                    "\nLocation (line, position): "+w.Locations.ElementAt(0));
             }
         }
     }

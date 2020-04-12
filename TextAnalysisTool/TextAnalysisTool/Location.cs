@@ -23,5 +23,11 @@ namespace TextAnalysisTool {
             set { wordPosition = value; }
             get { return wordPosition; }
         }
+
+        
+        public override string ToString()
+        {
+            return "Line: " + lineNumber + ", " + wordPosition;
+        }
     }
 }

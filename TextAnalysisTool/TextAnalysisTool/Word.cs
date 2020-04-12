@@ -33,13 +33,10 @@ namespace TextAnalysisTool {
 
         public LinkedList<Location> Locations {
             get {
-
                 if (locations == null) {
                     return new LinkedList<Location>();
                 }
-
                 return locations;
-
             }
             set {
                 locations = value;
@@ -56,6 +53,17 @@ namespace TextAnalysisTool {
 
             return this.word.CompareTo(other.word);
         }
+
+        public override bool Equals(object obj)
+        {
+            return this.ToString().Equals(obj.ToString());
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
 
         public override string ToString() {
             return word;// +" ("+occurrences+")";

@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 namespace TextAnalysisTool {
     class AVLTree<T> : BSTree<T> where T : IComparable {
 
-        public int occur = 0;
-
         public new void InsertItem(T item) {
-            insertItem(item, ref root);
+            InsertItem(item, ref root);
         }
 
-        private void insertItem(T item, ref Node<T> tree) {
+        private void InsertItem(T item, ref Node<T> tree) {
             if (tree == null) {
                 tree = new Node<T>(item);
             }
-            else if (item.CompareTo(tree.Key) < 0) {
-                insertItem(item, ref tree.Left);
+
+            if (item.CompareTo(tree.Key) < 0) {
+                InsertItem(item, ref tree.Left);
             }
             else if (item.CompareTo(tree.Key) > 0) {
-                insertItem(item, ref tree.Right);
+                InsertItem(item, ref tree.Right);
             }
             else { //if equal
                 (tree.Count)++;
@@ -38,38 +37,13 @@ namespace TextAnalysisTool {
 
         }
 
-
-        public int GetWordCount(T item) {
-            return GetWordCount(item, ref root);
-        }
-
-        private int GetWordCount(T item, ref Node<T> tree) {
-            int count = 0;
-
-            if (tree == null) {
-                tree = new Node<T>(item);
-            }
-
-            if (item.CompareTo(tree.Key) < 0) {
-                GetWordCount(item, ref tree.Left);
-            }
-            else if (item.CompareTo(tree.Key) > 0) {
-                GetWordCount(item, ref tree.Right);
-            }
-            else { //if equal
-                count++;
-            }
-
-            return count;
-        }
-
         public Node<T> GetNode(T item) {
             return GetNode(item, ref root);
         }
 
         private Node<T> GetNode(T item, ref Node<T> tree) {
             if (tree == null) {
-                Console.WriteLine("Item (" + item + ") not found!");
+                //Console.WriteLine("Item (" + item + ") not found!");
                 return null;
             }
 
@@ -80,11 +54,36 @@ namespace TextAnalysisTool {
                 return GetNode(item, ref tree.Right);
             }
             else {
-                Console.WriteLine("Item (" + item + ") found!");
+                //Console.WriteLine("Item (" + item + ") found!");
                 return tree;
             }
         }
 
+        public T GetItem(T item)
+        {
+            return GetItem(item, ref root);
+        }
+
+        private T GetItem(T item, ref Node<T> tree)
+        {
+            if (tree == null)
+            {
+                return default;
+            }
+
+            if (item.CompareTo(tree.Key) < 0)
+            {
+                return GetItem(item, ref tree.Left);
+            }
+            else if (item.CompareTo(tree.Key) > 0)
+            {
+                return GetItem(item, ref tree.Right);
+            }
+            else
+            {
+                return item;
+            }
+        }
 
         private void rotateLeft(ref Node<T> tree) {
             if (tree == null) {
@@ -123,27 +122,5 @@ namespace TextAnalysisTool {
             newRoot.Right = oldRoot;
             tree = newRoot;
         }
-
-        //public int FindItemCount(T item) {
-        //    return FindItemCount(item, ref root);
-        //}
-
-        //private int FindItemCount(T item, ref Node<T> tree) {
-        //    if (tree == null) {
-        //        tree = new Node<T>(item);
-        //    }
-
-        //    else if (item.CompareTo(tree.Key) < 0) {
-        //        FindItemCount(item, ref tree.Left);
-        //    }
-        //    else if (item.CompareTo(tree.Key) > 0) {
-        //        FindItemCount(item, ref tree.Right);
-        //    }
-        //    else { //if equal
-        //        (tree.Count)++;
-        //    }
-
-        //    return tree.Count;
-        //}
     }
 }

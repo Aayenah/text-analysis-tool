@@ -129,12 +129,12 @@ namespace TextAnalysisTool {
 
         private Boolean Contains(T item, ref Node<T> tree) {
             if (tree == null) {
-                Console.WriteLine("Item (" + item + ") not found!");
+                //Console.WriteLine("Item (" + item + ") not found!");
                 return false;
             }
 
             if (item.CompareTo(tree.Key) == 0) {
-                Console.WriteLine("Item (" + item + ") found!");
+                //Console.WriteLine("Item (" + item + ") found!");
                 return true;
             }
             else if (item.CompareTo(tree.Key) < 0) {
