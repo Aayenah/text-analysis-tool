@@ -27,15 +27,16 @@
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
             this.statsGroup = new System.Windows.Forms.GroupBox();
+            this.wordCountLabel = new System.Windows.Forms.Label();
             this.unqWordLabel = new System.Windows.Forms.Label();
             this.loadGroup = new System.Windows.Forms.GroupBox();
             this.filenameLabel = new System.Windows.Forms.Label();
             this.mainGroup = new System.Windows.Forms.GroupBox();
+            this.viewButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
             this.wordsListLabel = new System.Windows.Forms.Label();
             this.wordsListBox = new System.Windows.Forms.ListBox();
-            this.wordCountLabel = new System.Windows.Forms.Label();
-            this.editButton = new System.Windows.Forms.Button();
-            this.viewButton = new System.Windows.Forms.Button();
+            this.delWordButton = new System.Windows.Forms.Button();
             this.statsGroup.SuspendLayout();
             this.loadGroup.SuspendLayout();
             this.mainGroup.SuspendLayout();
@@ -79,6 +80,15 @@
             this.statsGroup.TabStop = false;
             this.statsGroup.Text = "Word Stats";
             // 
+            // wordCountLabel
+            // 
+            this.wordCountLabel.AutoSize = true;
+            this.wordCountLabel.Location = new System.Drawing.Point(7, 33);
+            this.wordCountLabel.Name = "wordCountLabel";
+            this.wordCountLabel.Size = new System.Drawing.Size(63, 13);
+            this.wordCountLabel.TabIndex = 1;
+            this.wordCountLabel.Text = "Word count";
+            // 
             // unqWordLabel
             // 
             this.unqWordLabel.AutoSize = true;
@@ -115,6 +125,7 @@
             // 
             // mainGroup
             // 
+            this.mainGroup.Controls.Add(this.delWordButton);
             this.mainGroup.Controls.Add(this.viewButton);
             this.mainGroup.Controls.Add(this.editButton);
             this.mainGroup.Controls.Add(this.wordsListLabel);
@@ -125,6 +136,26 @@
             this.mainGroup.Size = new System.Drawing.Size(585, 328);
             this.mainGroup.TabIndex = 6;
             this.mainGroup.TabStop = false;
+            // 
+            // viewButton
+            // 
+            this.viewButton.Location = new System.Drawing.Point(430, 33);
+            this.viewButton.Name = "viewButton";
+            this.viewButton.Size = new System.Drawing.Size(149, 23);
+            this.viewButton.TabIndex = 6;
+            this.viewButton.Text = "View";
+            this.viewButton.UseVisualStyleBackColor = true;
+            this.viewButton.Click += new System.EventHandler(this.viewButton_Click);
+            // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(430, 62);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(149, 23);
+            this.editButton.TabIndex = 5;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // wordsListLabel
             // 
@@ -143,33 +174,15 @@
             this.wordsListBox.Size = new System.Drawing.Size(416, 277);
             this.wordsListBox.TabIndex = 5;
             // 
-            // wordCountLabel
+            // delWordButton
             // 
-            this.wordCountLabel.AutoSize = true;
-            this.wordCountLabel.Location = new System.Drawing.Point(7, 33);
-            this.wordCountLabel.Name = "wordCountLabel";
-            this.wordCountLabel.Size = new System.Drawing.Size(63, 13);
-            this.wordCountLabel.TabIndex = 1;
-            this.wordCountLabel.Text = "Word count";
-            // 
-            // editButton
-            // 
-            this.editButton.Location = new System.Drawing.Point(504, 62);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(75, 23);
-            this.editButton.TabIndex = 5;
-            this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
-            // 
-            // viewButton
-            // 
-            this.viewButton.Location = new System.Drawing.Point(504, 33);
-            this.viewButton.Name = "viewButton";
-            this.viewButton.Size = new System.Drawing.Size(75, 23);
-            this.viewButton.TabIndex = 6;
-            this.viewButton.Text = "View";
-            this.viewButton.UseVisualStyleBackColor = true;
-            this.viewButton.Click += new System.EventHandler(this.viewButton_Click);
+            this.delWordButton.Location = new System.Drawing.Point(430, 120);
+            this.delWordButton.Name = "delWordButton";
+            this.delWordButton.Size = new System.Drawing.Size(149, 23);
+            this.delWordButton.TabIndex = 7;
+            this.delWordButton.Text = "Delete";
+            this.delWordButton.UseVisualStyleBackColor = true;
+            this.delWordButton.Click += new System.EventHandler(this.delWordButton_Click);
             // 
             // Form1
             // 
@@ -207,6 +220,7 @@
         private System.Windows.Forms.Label wordCountLabel;
         private System.Windows.Forms.Button viewButton;
         private System.Windows.Forms.Button editButton;
+        private System.Windows.Forms.Button delWordButton;
     }
 }
 

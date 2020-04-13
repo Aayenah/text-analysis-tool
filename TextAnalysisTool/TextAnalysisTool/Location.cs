@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
-    class Location {
+    public class Location {
         private int lineNumber = 0;
         private int wordPosition = 0;
 

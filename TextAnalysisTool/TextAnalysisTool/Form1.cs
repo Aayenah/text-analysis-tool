@@ -22,6 +22,7 @@ namespace TextAnalysisTool {
 
         AVLTree<Word> avl = new AVLTree<Word>();
 
+
         private void browseButton_Click(object sender, EventArgs e) {
             ofd.Filter = "Text Files|*.txt";
 
@@ -40,11 +41,6 @@ namespace TextAnalysisTool {
                             Word w = new Word(wordsArray[j].ToLower());
                             if (avl.Contains(w))
                             {
-                                Console.WriteLine(w + " is already in tree");
-                                avl.GetItem(w).Locations.AddLast(new Location(i + 1, j + 1));
-                                Console.WriteLine(w + "Location added");
-                                //w.Occurrences += 1;
-                                Console.WriteLine("Occurrences increased");
                                 avl.GetNode(w).Key.Occurrences++;
                                 avl.GetNode(w).Key.Locations.AddLast(new Location(i + 1, j + 1));
                             }
@@ -53,11 +49,22 @@ namespace TextAnalysisTool {
                                 avl.InsertItem(w);
                                 avl.GetNode(w).Key.Occurrences++;
                                 avl.GetNode(w).Key.Locations.AddLast(new Location(i + 1, j + 1));
-                                wordsListBox.Items.Add(avl.GetItem(w));
+
+                                //wordsListBox.DisplayMember = "Hello";
+
+                                wordsListBox.Items.Add(avl.GetNode(w).Key);
                             }
                         }
                     }
                 }
+
+                wordsListBox.Sorted = true;
+
+                foreach (Word item in wordsListBox.Items)
+                {
+                    
+                }
+                
 
                 pathTextBox.Text = ofd.FileName;
                 filenameLabel.Text = ofd.SafeFileName;
@@ -76,27 +83,47 @@ namespace TextAnalysisTool {
 
         private void viewButton_Click(object sender, EventArgs e)
         {
-            if (wordsListBox.SelectedItems.Count == 0)
+            if (wordsListBox.SelectedItem != null)
             {
-                unqWordLabel.Text = "No";
-            }
-            else
-            {
-                //wordsListBox.SelectedItem = avl.GetItem((Word)wordsListBox.SelectedItem);
-
-                //Word w = avl.GetItem((Word)wordsListBox.SelectedItem);
-
                 Word w = (Word)wordsListBox.SelectedItem;
                 String locations = "";
 
                 foreach (Location loc in w.Locations)
                 {
-                    locations += loc+" | ";
+                    locations += loc + " | ";
                 }
 
-                MessageBox.Show("Word: "+w.TheWord+
-                    "\nOccurences: "+w.Occurrences+
-                    "\nLocation (line, position): " + locations); //+w.Locations.ElementAt(0)
+                MessageBox.Show("Word: " + w.TheWord +
+                    "\nOccurences: " + w.Occurrences +
+                    "\nLocation (line, position): " + locations);
+            }
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            if(wordsListBox.SelectedItem != null)
+            {
+                Word w = (Word)wordsListBox.SelectedItem;
+                string locations = "";
+
+                foreach (Location loc in w.Locations)
+                {
+                    locations += loc + " | ";
+                }
+
+                EditForm form = new EditForm(w);
+                form.ShowDialog();
+            }
+        }
+
+        private void delWordButton_Click(object sender, EventArgs e)
+        {
+            if(wordsListBox.SelectedItem != null)
+            {
+                Word w = (Word)wordsListBox.SelectedItem;
+                avl.RemoveItem(w);
+                wordsListBox.Items.Remove(w);
+                unqWordLabel.Text = "Unique words: " + avl.Count();
             }
         }
     }

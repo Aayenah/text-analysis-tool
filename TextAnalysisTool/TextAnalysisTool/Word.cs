@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TextAnalysisTool {
-    class Word : IComparable {
+    public class Word : IComparable {
         private string word = "";
         private int occurrences = 0;
         LinkedList<Location> locations = new LinkedList<Location>();
