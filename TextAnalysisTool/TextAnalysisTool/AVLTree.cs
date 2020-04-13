@@ -23,7 +23,7 @@ namespace TextAnalysisTool {
                 InsertItem(item, ref tree.Right);
             }
             else { //if equal
-                (tree.Count)++;
+                //(tree.Count)++;
             }
 
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);
@@ -43,7 +43,6 @@ namespace TextAnalysisTool {
 
         private Node<T> GetNode(T item, ref Node<T> tree) {
             if (tree == null) {
-                //Console.WriteLine("Item (" + item + ") not found!");
                 return null;
             }
 
@@ -54,7 +53,6 @@ namespace TextAnalysisTool {
                 return GetNode(item, ref tree.Right);
             }
             else {
-                //Console.WriteLine("Item (" + item + ") found!");
                 return tree;
             }
         }
@@ -81,6 +79,7 @@ namespace TextAnalysisTool {
             }
             else
             {
+                Console.WriteLine("returning " + item);
                 return item;
             }
         }

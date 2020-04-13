@@ -27,7 +27,7 @@ namespace TextAnalysisTool {
         
         public override string ToString()
         {
-            return "Line: " + lineNumber + ", " + wordPosition;
+            return lineNumber + "," + wordPosition;
         }
     }
 }
