@@ -108,9 +108,24 @@
             // numericField
             // 
             this.numericField.Location = new System.Drawing.Point(98, 84);
+            this.numericField.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericField.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericField.Name = "numericField";
             this.numericField.Size = new System.Drawing.Size(74, 20);
             this.numericField.TabIndex = 8;
+            this.numericField.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // delLocationButton
             // 
@@ -135,6 +150,11 @@
             // numericLine
             // 
             this.numericLine.Location = new System.Drawing.Point(178, 173);
+            this.numericLine.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericLine.Minimum = new decimal(new int[] {
             1,
             0,
@@ -152,6 +172,11 @@
             // numericPos
             // 
             this.numericPos.Location = new System.Drawing.Point(178, 213);
+            this.numericPos.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericPos.Minimum = new decimal(new int[] {
             1,
             0,

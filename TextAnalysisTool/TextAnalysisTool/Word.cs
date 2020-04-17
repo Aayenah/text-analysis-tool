@@ -54,6 +54,35 @@ namespace TextAnalysisTool {
             return this.word.CompareTo(other.word);
         }
 
+        public int CompareToPrefix(object obj)
+        {
+            Word prefix = (Word)obj;
+
+            if (prefix == null)
+            {
+                return 1;
+            }
+
+            if (this.word.StartsWith(prefix.ToString()))
+            {
+                return 0;
+            }
+
+            return this.word.StartsWith(prefix.ToString()).CompareTo(prefix);
+        }
+
+
+        public bool ContainsSubstring(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return false;
+            }
+
+            return this.word.Contains(str);
+        }
+
+
         public override bool Equals(object obj)
         {
             return this.ToString().Equals(obj.ToString());

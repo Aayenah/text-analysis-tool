@@ -57,32 +57,6 @@ namespace TextAnalysisTool {
             }
         }
 
-        public T GetItem(T item)
-        {
-            return GetItem(item, ref root);
-        }
-
-        private T GetItem(T item, ref Node<T> tree)
-        {
-            if (tree == null)
-            {
-                return default;
-            }
-
-            if (item.CompareTo(tree.Key) < 0)
-            {
-                return GetItem(item, ref tree.Left);
-            }
-            else if (item.CompareTo(tree.Key) > 0)
-            {
-                return GetItem(item, ref tree.Right);
-            }
-            else
-            {
-                Console.WriteLine("returning " + item);
-                return item;
-            }
-        }
 
         private void rotateLeft(ref Node<T> tree) {
             if (tree == null) {

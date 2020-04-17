@@ -28,49 +28,48 @@ namespace TextAnalysisTool {
 
 
         private void browseButton_Click(object sender, EventArgs e) {
-            ofd.Filter = "Text Files|*.txt";
+            ofd.Filter = "Text Files|*.txt"; //filer dialog option to .txt files
 
-            if(ofd.ShowDialog() == DialogResult.OK) {
-                string fileName = ofd.FileName;
+            if(ofd.ShowDialog() == DialogResult.OK) 
+            {
+                string fileName = ofd.FileName; 
                 string[] allLines = File.ReadAllLines(fileName);
                 string[] wordsArray;
                 int wordCount = 0;
 
-                for (int i = 0; i < allLines.Length; i++) { //FOR EACH LINE
-                    wordsArray = allLines[i].Split(charsToTrim);
+                for (int i = 0; i < allLines.Length; i++) //Read each line
+                { 
+                    wordsArray = allLines[i].Split(charsToTrim); //Split each line into words array
 
-                    for (int j = 0; j < wordsArray.Length; j++) { //FOR EACH WORD
-                        if (wordsArray[j] != "") {
-                            wordCount++;
-                            Word w = new Word(wordsArray[j].ToLower());
-                            if (avl.Contains(w))
+                    for (int j = 0; j < wordsArray.Length; j++) //Read each word in that line
+                    { 
+                        if (wordsArray[j] != "") 
+                        {
+                            //word is not empty
+                            wordCount++; //Increase total word count by 1
+                            Word w = new Word(wordsArray[j].ToLower()); //Create new Word object
+                            if (!avl.Contains(w))
                             {
-                                avl.GetNode(w).Key.Occurrences++;
-                                avl.GetNode(w).Key.Locations.AddLast(new Location(i + 1, j + 1));
+                                //AVL tree doesn't contain this word
+                                avl.InsertItem(w); //Insert word to tree
+                                wordsListBox.Items.Add(w); //Add word to ListBox
                             }
-                            else
-                            {
-                                avl.InsertItem(w);
-                                avl.GetNode(w).Key.Occurrences++;
-                                avl.GetNode(w).Key.Locations.AddLast(new Location(i + 1, j + 1));
-
-                                //wordsListBox.DisplayMember = "Hello";
-
-                                wordsListBox.Items.Add(avl.GetNode(w).Key);
-                            }
+                            avl.GetNode(w).Key.Occurrences++; //Update word's occurrences everytime we find the same word
+                            avl.GetNode(w).Key.Locations.AddLast(new Location(i + 1, j + 1)); //Add new location everytime we find the same word
                         }
                     }
                 }
 
+                //copy original data into a list
                 itemsList = wordsListBox.Items.OfType<Word>().ToList();
 
-                pathTextBox.Text = ofd.FileName;
-                filenameLabel.Text = ofd.SafeFileName;
-                statusLabel.Text = "Successfully loaded: ";
+                pathTextBox.Text = ofd.FileName; //show file path inside browse field
+                filenameLabel.Text = ofd.SafeFileName; //show file name
+                statusLabel.Text = "Successfully loaded: "; //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
                 filenameLabel.Visible = true;
 
-                wordCountLabel.Text = "Word count: " + wordCount;
-                unqWordLabel.Text = "Unique words: "+avl.Count();
+                wordCountLabel.Text = "Word count: " + wordCount; //display total word count
+                unqWordLabel.Text = "Unique words: "+avl.Count(); //display unique word count
             }
         }
 
@@ -83,16 +82,16 @@ namespace TextAnalysisTool {
         {
             if (wordsListBox.SelectedItem != null)
             {
-                Word w = (Word)wordsListBox.SelectedItem;
+                Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem);
                 String locations = "";
 
-                foreach (Location loc in w.Locations)
+                foreach (Location loc in node.Key.Locations)
                 {
                     locations += loc + " | ";
                 }
 
-                MessageBox.Show("Word: " + w.TheWord +
-                    "\nOccurences: " + w.Occurrences +
+                MessageBox.Show("Word: " + node.Key.TheWord +
+                    "\nOccurences: " + node.Key.Occurrences +
                     "\nLocation (line, position): " + locations);
             }
         }
@@ -101,15 +100,16 @@ namespace TextAnalysisTool {
         {
             if(wordsListBox.SelectedItem != null)
             {
-                Word w = (Word)wordsListBox.SelectedItem;
+                Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem);
+
                 string locations = "";
 
-                foreach (Location loc in w.Locations)
+                foreach (Location loc in node.Key.Locations)
                 {
                     locations += loc + " | ";
                 }
 
-                EditForm form = new EditForm(w);
+                EditForm form = new EditForm(node.Key);
                 form.ShowDialog();
             }
         }
@@ -118,40 +118,45 @@ namespace TextAnalysisTool {
         {
             if (wordsListBox.SelectedItem != null)
             {
-                Word w = (Word)wordsListBox.SelectedItem;
-                avl.RemoveItem(w);
-                wordsListBox.Items.Remove(w);
-                unqWordLabel.Text = "Unique words: " + avl.Count();
+                //if there is a selected item
+                Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem); //retrieve node containing Word
+                itemsList.Remove(node.Key); //remove Word from from the copy list for GUI
+                wordsListBox.Items.Remove(node.Key); //remove Word from ListBox
+                avl.RemoveItem(node.Key); //remove Word from tree
+                unqWordLabel.Text = "Unique words: " + avl.Count(); //update unique word counter
             }
         }
-
 
         
         private void sortOccurButton_Click(object sender, EventArgs e)
         {
+            /*Implements toggle functionality to sort by ascending or descending
+             depending on what the current sort is*/
+
             if(sortedByOccurrenceDesc == false)
             {
-                List<Word> descSortList = wordsListBox.Items.OfType<Word>().OrderByDescending(w => w.Occurrences).ToList();
-                wordsListBox.Items.Clear();
+                //if sorted by ascedning (or not sorted because the value is initialized false at start of class)
+                List<Word> descSortList = wordsListBox.Items.OfType<Word>().OrderByDescending(w => w.Occurrences).ToList(); //create temp list and sort by occurrences desc
+                wordsListBox.Items.Clear(); //clear ListBox to redraw
                 foreach (Word item in descSortList)
                 {
                     wordsListBox.Items.Add(item);
                     Console.WriteLine(item);
                 }
-                sortedByOccurrenceDesc = true;
+                sortedByOccurrenceDesc = true; //set value so when the button is pressed again it will trigger to opposite sort
             }
             else
             {
-                List<Word> sortList = wordsListBox.Items.OfType<Word>().OrderBy(w => w.Occurrences).ToList();
-                wordsListBox.Items.Clear();
+                //if already sorted by descending
+                List<Word> sortList = wordsListBox.Items.OfType<Word>().OrderBy(w => w.Occurrences).ToList(); //create sorted ascending list
+                wordsListBox.Items.Clear(); //clear ListBox to redraw
                 foreach (Word item in sortList)
                 {
                     wordsListBox.Items.Add(item);
                     Console.WriteLine(item);
                 }
-                sortedByOccurrenceDesc = false;
+                sortedByOccurrenceDesc = false; //reset the value
             }
-            
         }
 
 
@@ -163,19 +168,28 @@ namespace TextAnalysisTool {
         
         private void searchField_KeyUp(object sender, KeyEventArgs e)
         {
-            wordsListBox.Items.Clear();
-            foreach (Word word in itemsList)
+            wordsListBox.Items.Clear(); //clear ListBox to redraw with matching items
+            foreach (Word word in itemsList) //loop through the copy list
             {
-                if (word.TheWord.StartsWith(searchField.Text, StringComparison.CurrentCultureIgnoreCase))
+                if (word.TheWord.StartsWith(searchField.Text, StringComparison.CurrentCultureIgnoreCase)) //compare word prefix and ignore case
                 {
-                    wordsListBox.Items.Add(word);
+                    wordsListBox.Items.Add(word); //add words that match
                 }
             }
         }
 
-        private void wordSearchLabel_Click(object sender, EventArgs e)
+        private void occurrenceUpDown_ValueChanged(object sender, EventArgs e)
         {
-
+            /*Triggers whenever the value changes either by up/down arrows or by entering
+             value and pressing ENTER*/
+            wordsListBox.Items.Clear(); //clear ListBox to redraw
+            foreach (Word word in itemsList) //loop through copy list
+            {
+                if (word.Occurrences >= occurrenceUpDown.Value)
+                {
+                    wordsListBox.Items.Add(word); //add words that match criteria to ListBox
+                }
+            }
         }
     }
 }
