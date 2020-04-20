@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace TextAnalysisTool {
     class AVLTree<T> : BSTree<T> where T : IComparable {
 
+        
+
         public new void InsertItem(T item) {
             InsertItem(item, ref root);
         }
@@ -21,9 +23,6 @@ namespace TextAnalysisTool {
             }
             else if (item.CompareTo(tree.Key) > 0) {
                 InsertItem(item, ref tree.Right);
-            }
-            else { //if equal
-                //(tree.Count)++;
             }
 
             tree.BalanceFactor = Height(tree.Left) - Height(tree.Right);
@@ -57,6 +56,47 @@ namespace TextAnalysisTool {
             }
         }
 
+
+        public List<Node<T>> GetAdjacentNodes(T from)
+        {
+            List<Node<T>> adjList = new List<Node<T>>();
+            return GetAdjacentNodes(from, adjList, ref root);
+        }
+
+        private List<Node<T>> GetAdjacentNodes(T from, List<Node<T>> list,ref Node<T> tree)
+        {
+            if (tree == null)
+            {
+                return default;
+            }
+
+            if (from.CompareTo(tree.Key) < 0)
+            {
+                Console.WriteLine("Going LEFT of " + from + " | " + tree.Left.Key);
+                return GetAdjacentNodes(from, list, ref tree.Left);
+            }
+            else if (from.CompareTo(tree.Key) > 0)
+            {
+                Console.WriteLine("Going RIGHT of " + from + " | " + tree.Right.Key);
+                return GetAdjacentNodes(from, list, ref tree.Right);
+            }
+            else
+            {
+                Console.WriteLine("Found word: " + from);
+                if (tree.Left != null)
+                {
+                    Console.WriteLine(tree.Left.Key+" is adj to " + from);
+                    list.Add(tree.Left);
+                }
+                if (tree.Right != null)
+                {
+                    Console.WriteLine(tree.Right.Key + " is adj to " + from);
+                    list.Add(tree.Right);
+                }
+                
+                return list;
+            }
+        }
 
         private void rotateLeft(ref Node<T> tree) {
             if (tree == null) {

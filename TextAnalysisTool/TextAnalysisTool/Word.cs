@@ -9,6 +9,8 @@ namespace TextAnalysisTool {
         private string word = "";
         private int occurrences = 0;
         LinkedList<Location> locations = new LinkedList<Location>();
+        private Word adjacentWord;
+
 
         public Word(String word, int occurrences, LinkedList<Location> locations) {
             this.word = word;
@@ -16,7 +18,7 @@ namespace TextAnalysisTool {
             this.locations = locations;
         }
 
-        public Word(String word) {
+        public Word(string word) {
             this.word = word;
         }
 
@@ -43,6 +45,11 @@ namespace TextAnalysisTool {
             }
         }
 
+        public Word AdjacentWord {
+            set { adjacentWord = value; }
+            get { return adjacentWord; }
+        }
+
 
         public int CompareTo(object obj) {
             Word other = (Word) obj;
@@ -52,34 +59,6 @@ namespace TextAnalysisTool {
             }
 
             return this.word.CompareTo(other.word);
-        }
-
-        public int CompareToPrefix(object obj)
-        {
-            Word prefix = (Word)obj;
-
-            if (prefix == null)
-            {
-                return 1;
-            }
-
-            if (this.word.StartsWith(prefix.ToString()))
-            {
-                return 0;
-            }
-
-            return this.word.StartsWith(prefix.ToString()).CompareTo(prefix);
-        }
-
-
-        public bool ContainsSubstring(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return false;
-            }
-
-            return this.word.Contains(str);
         }
 
 
@@ -95,7 +74,7 @@ namespace TextAnalysisTool {
 
 
         public override string ToString() {
-            return word;// +" ("+occurrences+")";
+            return word;
         }
     }
 }

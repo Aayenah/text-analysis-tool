@@ -17,14 +17,13 @@ namespace TextAnalysisTool {
 
         bool sortedByOccurrenceDesc = false;
 
+        AVLTree<Word> avl = new AVLTree<Word>();
         List<Word> itemsList = new List<Word>();
 
 
         public Form1() {
             InitializeComponent();
         }
-
-        AVLTree<Word> avl = new AVLTree<Word>();
 
 
         private void browseButton_Click(object sender, EventArgs e) {
@@ -36,6 +35,8 @@ namespace TextAnalysisTool {
                 string[] allLines = File.ReadAllLines(fileName);
                 string[] wordsArray;
                 int wordCount = 0;
+                int evenWords = 0;
+                int oddWords = 0;
 
                 for (int i = 0; i < allLines.Length; i++) //Read each line
                 { 
@@ -43,8 +44,8 @@ namespace TextAnalysisTool {
 
                     for (int j = 0; j < wordsArray.Length; j++) //Read each word in that line
                     { 
-                        if (wordsArray[j] != "") 
-                        {
+                        if (wordsArray[j] != "")
+                        {   
                             //word is not empty
                             wordCount++; //Increase total word count by 1
                             Word w = new Word(wordsArray[j].ToLower()); //Create new Word object
@@ -62,14 +63,30 @@ namespace TextAnalysisTool {
 
                 //copy original data into a list
                 itemsList = wordsListBox.Items.OfType<Word>().ToList();
+                
+                for (int i = 0; i < itemsList.Count; i++)
+                {
+                    try
+                    {
+                        avl.GetNode(itemsList.ElementAt(i)).Key.AdjacentWord = itemsList.ElementAt(i + 1);
+                        Console.WriteLine(itemsList[i] + " has adjacent " + itemsList[i + 1]);
+                    }
+                    catch (Exception)
+                    {
+                        avl.GetNode(itemsList.ElementAt(i)).Key.AdjacentWord = null;
+                    }
+                }
 
                 pathTextBox.Text = ofd.FileName; //show file path inside browse field
                 filenameLabel.Text = ofd.SafeFileName; //show file name
                 statusLabel.Text = "Successfully loaded: "; //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
                 filenameLabel.Visible = true;
 
+                ///*WORD STATS*///
                 wordCountLabel.Text = "Word count: " + wordCount; //display total word count
                 unqWordLabel.Text = "Unique words: "+avl.Count(); //display unique word count
+                evenLabel.Text = "Even words: " + evenWords;
+                oddLabel.Text = "Odd words: " + oddWords;
             }
         }
 
@@ -96,6 +113,7 @@ namespace TextAnalysisTool {
             }
         }
 
+
         private void editButton_Click(object sender, EventArgs e)
         {
             if(wordsListBox.SelectedItem != null)
@@ -113,6 +131,7 @@ namespace TextAnalysisTool {
                 form.ShowDialog();
             }
         }
+
 
         private void delWordButton_Click(object sender, EventArgs e)
         {
@@ -178,6 +197,7 @@ namespace TextAnalysisTool {
             }
         }
 
+
         private void occurrenceUpDown_ValueChanged(object sender, EventArgs e)
         {
             /*Triggers whenever the value changes either by up/down arrows or by entering
@@ -189,6 +209,91 @@ namespace TextAnalysisTool {
                 {
                     wordsListBox.Items.Add(word); //add words that match criteria to ListBox
                 }
+            }
+        }
+
+
+        private void concordanceButton_Click(object sender, EventArgs e)
+        {
+            List<Word> concorList = wordsListBox.Items.OfType<Word>().OrderBy(w => w.TheWord).ToList();
+
+            wordsListBox.Items.Clear(); //clear ListBox to redraw
+            foreach (Word word in concorList) //loop through concordance list
+            {
+                wordsListBox.Items.Add(word);
+            }
+        }
+
+
+        private void mostCommonButton_Click(object sender, EventArgs e)
+        {
+            List<Word> tempList = wordsListBox.Items.OfType<Word>().OrderByDescending(w => w.Occurrences).ToList();
+            if (tempList.Count > 0)
+            {
+                int index = wordsListBox.Items.IndexOf(tempList.ElementAt(0));
+                wordsListBox.SetSelected(index, true);
+            }
+        }
+
+        private void adjButton_Click(object sender, EventArgs e)
+        {
+            if(wordsListBox.SelectedItem != null)
+            {
+                Word word = (Word)wordsListBox.SelectedItem;
+                string adjNodes = "";
+                foreach (Node<Word> node in avl.GetAdjacentNodes(word))
+                {
+                    adjNodes += node.Key + " | ";
+                }
+                MessageBox.Show("Adjacent words: "+adjNodes);
+            }
+        }
+
+        private void collocButton_Click(object sender, EventArgs e)
+        {
+            if (wordsListBox.SelectedItems.Count == 2)
+            {
+                List<Word> selectedWords = wordsListBox.SelectedItems.OfType<Word>().ToList(); //place the two words in list for easier access
+                int adjCount = 0; //counter for humber of times words appeared next to each other
+
+                foreach (Location word1Loc in avl.GetNode(selectedWords.ElementAt(0)).Key.Locations) //for each Location of Word1
+                {
+                    foreach (Location word2Loc in avl.GetNode(selectedWords.ElementAt(1)).Key.Locations) //loop through each Location of Word2
+                    {
+                        if(word1Loc.LineNumber == word2Loc.LineNumber) //words must exist on same line
+                        {
+                            if(word2Loc.WordPosition - word1Loc.WordPosition == 1) // 
+                            {
+                                Console.WriteLine(word1Loc + " and " + word2Loc + " are adjacent");
+                                adjCount++;
+                            }
+                        }
+                    }
+                }
+                countTextBox.Text = adjCount.ToString();
+            }
+        }
+
+        private void wordsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(wordsListBox.SelectedItems.Count == 1) //if one element selected
+            {
+                //set text box value to selected item
+                word1TextBox.Text = wordsListBox.SelectedItems.OfType<Word>().ElementAt(0).ToString();
+            }
+            else if (wordsListBox.SelectedItems.Count == 2) //if two elements selected
+            {
+                //set text box values to selected items
+                word1TextBox.Text = wordsListBox.SelectedItems.OfType<Word>().ElementAt(0).ToString();
+                word2TextBox.Text = wordsListBox.SelectedItems.OfType<Word>().ElementAt(1).ToString();
+            }
+            else if (wordsListBox.SelectedItems.Count > 2) //if more than two elements selected
+            {
+                //Clear selected items and text boxes
+                wordsListBox.ClearSelected();
+                word1TextBox.Text = "";
+                word2TextBox.Text = "";
+                countTextBox.Text = "";
             }
         }
     }

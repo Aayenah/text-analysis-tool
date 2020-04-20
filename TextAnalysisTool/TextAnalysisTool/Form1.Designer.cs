@@ -27,12 +27,25 @@
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
             this.statsGroup = new System.Windows.Forms.GroupBox();
+            this.oddLabel = new System.Windows.Forms.Label();
+            this.evenLabel = new System.Windows.Forms.Label();
             this.wordCountLabel = new System.Windows.Forms.Label();
             this.unqWordLabel = new System.Windows.Forms.Label();
             this.loadGroup = new System.Windows.Forms.GroupBox();
             this.filenameLabel = new System.Windows.Forms.Label();
             this.mainGroup = new System.Windows.Forms.GroupBox();
+            this.adjButton = new System.Windows.Forms.Button();
+            this.mostCommonButton = new System.Windows.Forms.Button();
+            this.concordanceButton = new System.Windows.Forms.Button();
             this.searchGroup = new System.Windows.Forms.GroupBox();
+            this.collocButton = new System.Windows.Forms.Button();
+            this.countTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.word2TextBox = new System.Windows.Forms.TextBox();
+            this.word1TextBox = new System.Windows.Forms.TextBox();
             this.timesLabel = new System.Windows.Forms.Label();
             this.occurSearchLabel = new System.Windows.Forms.Label();
             this.occurrenceUpDown = new System.Windows.Forms.NumericUpDown();
@@ -79,6 +92,8 @@
             // 
             // statsGroup
             // 
+            this.statsGroup.Controls.Add(this.oddLabel);
+            this.statsGroup.Controls.Add(this.evenLabel);
             this.statsGroup.Controls.Add(this.wordCountLabel);
             this.statsGroup.Controls.Add(this.unqWordLabel);
             this.statsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,10 +104,28 @@
             this.statsGroup.TabStop = false;
             this.statsGroup.Text = "Word Stats";
             // 
+            // oddLabel
+            // 
+            this.oddLabel.AutoSize = true;
+            this.oddLabel.Location = new System.Drawing.Point(6, 131);
+            this.oddLabel.Name = "oddLabel";
+            this.oddLabel.Size = new System.Drawing.Size(58, 13);
+            this.oddLabel.TabIndex = 3;
+            this.oddLabel.Text = "Odd words";
+            // 
+            // evenLabel
+            // 
+            this.evenLabel.AutoSize = true;
+            this.evenLabel.Location = new System.Drawing.Point(6, 98);
+            this.evenLabel.Name = "evenLabel";
+            this.evenLabel.Size = new System.Drawing.Size(63, 13);
+            this.evenLabel.TabIndex = 2;
+            this.evenLabel.Text = "Even words";
+            // 
             // wordCountLabel
             // 
             this.wordCountLabel.AutoSize = true;
-            this.wordCountLabel.Location = new System.Drawing.Point(7, 33);
+            this.wordCountLabel.Location = new System.Drawing.Point(6, 33);
             this.wordCountLabel.Name = "wordCountLabel";
             this.wordCountLabel.Size = new System.Drawing.Size(63, 13);
             this.wordCountLabel.TabIndex = 1;
@@ -101,7 +134,7 @@
             // unqWordLabel
             // 
             this.unqWordLabel.AutoSize = true;
-            this.unqWordLabel.Location = new System.Drawing.Point(7, 61);
+            this.unqWordLabel.Location = new System.Drawing.Point(6, 66);
             this.unqWordLabel.Name = "unqWordLabel";
             this.unqWordLabel.Size = new System.Drawing.Size(72, 13);
             this.unqWordLabel.TabIndex = 0;
@@ -134,6 +167,9 @@
             // 
             // mainGroup
             // 
+            this.mainGroup.Controls.Add(this.adjButton);
+            this.mainGroup.Controls.Add(this.mostCommonButton);
+            this.mainGroup.Controls.Add(this.concordanceButton);
             this.mainGroup.Controls.Add(this.searchGroup);
             this.mainGroup.Controls.Add(this.sortOccurButton);
             this.mainGroup.Controls.Add(this.delWordButton);
@@ -148,8 +184,46 @@
             this.mainGroup.TabIndex = 6;
             this.mainGroup.TabStop = false;
             // 
+            // adjButton
+            // 
+            this.adjButton.Location = new System.Drawing.Point(430, 293);
+            this.adjButton.Name = "adjButton";
+            this.adjButton.Size = new System.Drawing.Size(149, 23);
+            this.adjButton.TabIndex = 12;
+            this.adjButton.Text = "Display Children in Tree";
+            this.adjButton.UseVisualStyleBackColor = true;
+            this.adjButton.Click += new System.EventHandler(this.adjButton_Click);
+            // 
+            // mostCommonButton
+            // 
+            this.mostCommonButton.Location = new System.Drawing.Point(430, 264);
+            this.mostCommonButton.Name = "mostCommonButton";
+            this.mostCommonButton.Size = new System.Drawing.Size(149, 23);
+            this.mostCommonButton.TabIndex = 11;
+            this.mostCommonButton.Text = "Most Common Word";
+            this.mostCommonButton.UseVisualStyleBackColor = true;
+            this.mostCommonButton.Click += new System.EventHandler(this.mostCommonButton_Click);
+            // 
+            // concordanceButton
+            // 
+            this.concordanceButton.Location = new System.Drawing.Point(430, 235);
+            this.concordanceButton.Name = "concordanceButton";
+            this.concordanceButton.Size = new System.Drawing.Size(149, 23);
+            this.concordanceButton.TabIndex = 10;
+            this.concordanceButton.Text = "Display Concordance";
+            this.concordanceButton.UseVisualStyleBackColor = true;
+            this.concordanceButton.Click += new System.EventHandler(this.concordanceButton_Click);
+            // 
             // searchGroup
             // 
+            this.searchGroup.Controls.Add(this.collocButton);
+            this.searchGroup.Controls.Add(this.countTextBox);
+            this.searchGroup.Controls.Add(this.label4);
+            this.searchGroup.Controls.Add(this.label3);
+            this.searchGroup.Controls.Add(this.label2);
+            this.searchGroup.Controls.Add(this.label1);
+            this.searchGroup.Controls.Add(this.word2TextBox);
+            this.searchGroup.Controls.Add(this.word1TextBox);
             this.searchGroup.Controls.Add(this.timesLabel);
             this.searchGroup.Controls.Add(this.occurSearchLabel);
             this.searchGroup.Controls.Add(this.occurrenceUpDown);
@@ -161,6 +235,77 @@
             this.searchGroup.TabIndex = 9;
             this.searchGroup.TabStop = false;
             this.searchGroup.Text = "Search";
+            // 
+            // collocButton
+            // 
+            this.collocButton.Location = new System.Drawing.Point(127, 177);
+            this.collocButton.Name = "collocButton";
+            this.collocButton.Size = new System.Drawing.Size(80, 49);
+            this.collocButton.TabIndex = 13;
+            this.collocButton.Text = "Display Collocation";
+            this.collocButton.UseVisualStyleBackColor = true;
+            this.collocButton.Click += new System.EventHandler(this.collocButton_Click);
+            // 
+            // countTextBox
+            // 
+            this.countTextBox.Location = new System.Drawing.Point(54, 232);
+            this.countTextBox.Name = "countTextBox";
+            this.countTextBox.ReadOnly = true;
+            this.countTextBox.Size = new System.Drawing.Size(67, 20);
+            this.countTextBox.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 235);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Count";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 209);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Word 2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 183);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Word 1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 147);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 26);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Collocation - Count the number of times \r\npair of words appear next to each other" +
+    "";
+            // 
+            // word2TextBox
+            // 
+            this.word2TextBox.Location = new System.Drawing.Point(54, 206);
+            this.word2TextBox.Name = "word2TextBox";
+            this.word2TextBox.ReadOnly = true;
+            this.word2TextBox.Size = new System.Drawing.Size(67, 20);
+            this.word2TextBox.TabIndex = 10;
+            // 
+            // word1TextBox
+            // 
+            this.word1TextBox.Location = new System.Drawing.Point(54, 180);
+            this.word1TextBox.Name = "word1TextBox";
+            this.word1TextBox.ReadOnly = true;
+            this.word1TextBox.Size = new System.Drawing.Size(67, 20);
+            this.word1TextBox.TabIndex = 9;
             // 
             // timesLabel
             // 
@@ -275,8 +420,10 @@
             this.wordsListBox.FormattingEnabled = true;
             this.wordsListBox.Location = new System.Drawing.Point(8, 33);
             this.wordsListBox.Name = "wordsListBox";
+            this.wordsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.wordsListBox.Size = new System.Drawing.Size(164, 277);
             this.wordsListBox.TabIndex = 5;
+            this.wordsListBox.SelectedIndexChanged += new System.EventHandler(this.wordsListBox_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -325,6 +472,19 @@
         private System.Windows.Forms.Label occurSearchLabel;
         private System.Windows.Forms.NumericUpDown occurrenceUpDown;
         private System.Windows.Forms.Label timesLabel;
+        private System.Windows.Forms.Button concordanceButton;
+        private System.Windows.Forms.Button mostCommonButton;
+        private System.Windows.Forms.Button adjButton;
+        private System.Windows.Forms.Button collocButton;
+        private System.Windows.Forms.TextBox countTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox word2TextBox;
+        private System.Windows.Forms.TextBox word1TextBox;
+        private System.Windows.Forms.Label oddLabel;
+        private System.Windows.Forms.Label evenLabel;
     }
 }
 
