@@ -9,7 +9,6 @@ namespace TextAnalysisTool {
         private string word = "";
         private int occurrences = 0;
         LinkedList<Location> locations = new LinkedList<Location>();
-        private Word adjacentWord;
 
 
         public Word(String word, int occurrences, LinkedList<Location> locations) {
@@ -44,12 +43,6 @@ namespace TextAnalysisTool {
                 locations = value;
             }
         }
-
-        public Word AdjacentWord {
-            set { adjacentWord = value; }
-            get { return adjacentWord; }
-        }
-
 
         public int CompareTo(object obj) {
             Word other = (Word) obj;

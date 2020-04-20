@@ -13,30 +13,39 @@ namespace TextAnalysisTool {
     public partial class Form1 : Form {
 
         OpenFileDialog ofd = new OpenFileDialog();
-        char[] charsToTrim = { ' ', ',', '.', '?', ';'};
+        char[] charsToTrim = { ' ', ',', '.', '?', ';', '\t'}; //selection of characters to trim
 
-        bool sortedByOccurrenceDesc = false;
+        bool sortedByOccurrenceDesc = false; //used to track the sort by occurrences state
 
-        AVLTree<Word> avl = new AVLTree<Word>();
-        List<Word> itemsList = new List<Word>();
+        AVLTree<Word> avl = new AVLTree<Word>(); //initialize AVL tree
+        List<Word> itemsList = new List<Word>(); //initialize a list that will hold a copy of ListBox
 
 
         public Form1() {
             InitializeComponent();
         }
 
-
         private void browseButton_Click(object sender, EventArgs e) {
-            ofd.Filter = "Text Files|*.txt"; //filer dialog option to .txt files
+            ofd.Filter = "Text Files|*.txt"; //filer dialog option to .txt files only
 
             if(ofd.ShowDialog() == DialogResult.OK) 
             {
-                string fileName = ofd.FileName; 
-                string[] allLines = File.ReadAllLines(fileName);
-                string[] wordsArray;
+                /*First we need to check that we don't already have data
+                 loaded from before, otherwise the user can load multiple
+                 files into the data structure and listbox*/
+                if (wordsListBox.Items.Count > 0) //if items already exist after we press OK in dialog
+                {
+                    foreach (Word item in wordsListBox.Items)
+                    {
+                        avl.RemoveItem(item); //remove item from tree
+                    }
+                    wordsListBox.Items.Clear(); //remove all items from listbox
+                }
+
+                string fileName = ofd.FileName;
+                string[] allLines = File.ReadAllLines(fileName); //store each line as an array element
+                string[] wordsArray; //declare an array to hold individual words
                 int wordCount = 0;
-                int evenWords = 0;
-                int oddWords = 0;
 
                 for (int i = 0; i < allLines.Length; i++) //Read each line
                 { 
@@ -44,14 +53,13 @@ namespace TextAnalysisTool {
 
                     for (int j = 0; j < wordsArray.Length; j++) //Read each word in that line
                     { 
-                        if (wordsArray[j] != "")
+                        if (wordsArray[j] != "") //if word is not an empty string
                         {   
                             //word is not empty
                             wordCount++; //Increase total word count by 1
                             Word w = new Word(wordsArray[j].ToLower()); //Create new Word object
-                            if (!avl.Contains(w))
+                            if (!avl.Contains(w)) //if AVL tree doesn't contain this word
                             {
-                                //AVL tree doesn't contain this word
                                 avl.InsertItem(w); //Insert word to tree
                                 wordsListBox.Items.Add(w); //Add word to ListBox
                             }
@@ -61,32 +69,16 @@ namespace TextAnalysisTool {
                     }
                 }
 
-                //copy original data into a list
-                itemsList = wordsListBox.Items.OfType<Word>().ToList();
-                
-                for (int i = 0; i < itemsList.Count; i++)
-                {
-                    try
-                    {
-                        avl.GetNode(itemsList.ElementAt(i)).Key.AdjacentWord = itemsList.ElementAt(i + 1);
-                        Console.WriteLine(itemsList[i] + " has adjacent " + itemsList[i + 1]);
-                    }
-                    catch (Exception)
-                    {
-                        avl.GetNode(itemsList.ElementAt(i)).Key.AdjacentWord = null;
-                    }
-                }
+                itemsList = wordsListBox.Items.OfType<Word>().ToList(); //copy original data into a list
 
                 pathTextBox.Text = ofd.FileName; //show file path inside browse field
                 filenameLabel.Text = ofd.SafeFileName; //show file name
-                statusLabel.Text = "Successfully loaded: "; //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-                filenameLabel.Visible = true;
+                statusLabel.Text = "Successfully loaded: "; //set file status label
+                filenameLabel.Visible = true; //show filename label
 
                 ///*WORD STATS*///
                 wordCountLabel.Text = "Word count: " + wordCount; //display total word count
                 unqWordLabel.Text = "Unique words: "+avl.Count(); //display unique word count
-                evenLabel.Text = "Even words: " + evenWords;
-                oddLabel.Text = "Odd words: " + oddWords;
             }
         }
 
@@ -97,7 +89,7 @@ namespace TextAnalysisTool {
 
         private void viewButton_Click(object sender, EventArgs e)
         {
-            if (wordsListBox.SelectedItem != null)
+            if (wordsListBox.SelectedItem != null && wordsListBox.SelectedItems.Count == 1)
             {
                 Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem);
                 String locations = "";
@@ -116,7 +108,7 @@ namespace TextAnalysisTool {
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            if(wordsListBox.SelectedItem != null)
+            if(wordsListBox.SelectedItem != null && wordsListBox.SelectedItems.Count == 1)
             {
                 Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem);
 
@@ -135,7 +127,7 @@ namespace TextAnalysisTool {
 
         private void delWordButton_Click(object sender, EventArgs e)
         {
-            if (wordsListBox.SelectedItem != null)
+            if (wordsListBox.SelectedItem != null && wordsListBox.SelectedItems.Count == 1)
             {
                 //if there is a selected item
                 Node<Word> node = avl.GetNode((Word)wordsListBox.SelectedItem); //retrieve node containing Word
@@ -146,7 +138,6 @@ namespace TextAnalysisTool {
             }
         }
 
-        
         private void sortOccurButton_Click(object sender, EventArgs e)
         {
             /*Implements toggle functionality to sort by ascending or descending
@@ -178,13 +169,11 @@ namespace TextAnalysisTool {
             }
         }
 
-
         private void searchField_TextChanged(object sender, EventArgs e)
         {
             
         }
 
-        
         private void searchField_KeyUp(object sender, KeyEventArgs e)
         {
             wordsListBox.Items.Clear(); //clear ListBox to redraw with matching items
@@ -196,7 +185,6 @@ namespace TextAnalysisTool {
                 }
             }
         }
-
 
         private void occurrenceUpDown_ValueChanged(object sender, EventArgs e)
         {
@@ -212,7 +200,6 @@ namespace TextAnalysisTool {
             }
         }
 
-
         private void concordanceButton_Click(object sender, EventArgs e)
         {
             List<Word> concorList = wordsListBox.Items.OfType<Word>().OrderBy(w => w.TheWord).ToList();
@@ -224,34 +211,36 @@ namespace TextAnalysisTool {
             }
         }
 
-
         private void mostCommonButton_Click(object sender, EventArgs e)
         {
             List<Word> tempList = wordsListBox.Items.OfType<Word>().OrderByDescending(w => w.Occurrences).ToList();
             if (tempList.Count > 0)
             {
                 int index = wordsListBox.Items.IndexOf(tempList.ElementAt(0));
+                wordsListBox.ClearSelected();
                 wordsListBox.SetSelected(index, true);
             }
         }
 
         private void adjButton_Click(object sender, EventArgs e)
         {
-            if(wordsListBox.SelectedItem != null)
+            /*This method was created because I initially misunderstood Task 9, somehow.
+             It just displays the child nodes of a selected word from the tree*/
+            if(wordsListBox.SelectedItem != null && wordsListBox.SelectedItems.Count == 1)
             {
                 Word word = (Word)wordsListBox.SelectedItem;
                 string adjNodes = "";
-                foreach (Node<Word> node in avl.GetAdjacentNodes(word))
+                foreach (Node<Word> node in avl.GetChildNodes(word))
                 {
                     adjNodes += node.Key + " | ";
                 }
-                MessageBox.Show("Adjacent words: "+adjNodes);
+                MessageBox.Show("Child nodes: "+adjNodes);
             }
         }
 
         private void collocButton_Click(object sender, EventArgs e)
         {
-            if (wordsListBox.SelectedItems.Count == 2)
+            if (wordsListBox.SelectedItems.Count == 2) //must have 2 selected items 
             {
                 List<Word> selectedWords = wordsListBox.SelectedItems.OfType<Word>().ToList(); //place the two words in list for easier access
                 int adjCount = 0; //counter for humber of times words appeared next to each other
@@ -262,15 +251,15 @@ namespace TextAnalysisTool {
                     {
                         if(word1Loc.LineNumber == word2Loc.LineNumber) //words must exist on same line
                         {
-                            if(word2Loc.WordPosition - word1Loc.WordPosition == 1) // 
+                            if(word2Loc.WordPosition - word1Loc.WordPosition == 1) //if the difference of position is 1 it means they're adjacent
                             {
                                 Console.WriteLine(word1Loc + " and " + word2Loc + " are adjacent");
-                                adjCount++;
+                                adjCount++; //increment count
                             }
                         }
                     }
                 }
-                countTextBox.Text = adjCount.ToString();
+                countTextBox.Text = adjCount.ToString(); //display count in text box
             }
         }
 
@@ -280,6 +269,7 @@ namespace TextAnalysisTool {
             {
                 //set text box value to selected item
                 word1TextBox.Text = wordsListBox.SelectedItems.OfType<Word>().ElementAt(0).ToString();
+                countTextBox.Text = "";
             }
             else if (wordsListBox.SelectedItems.Count == 2) //if two elements selected
             {
@@ -291,6 +281,12 @@ namespace TextAnalysisTool {
             {
                 //Clear selected items and text boxes
                 wordsListBox.ClearSelected();
+                word1TextBox.Text = "";
+                word2TextBox.Text = "";
+                countTextBox.Text = "";
+            }
+            else
+            {
                 word1TextBox.Text = "";
                 word2TextBox.Text = "";
                 countTextBox.Text = "";

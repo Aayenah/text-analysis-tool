@@ -27,8 +27,6 @@
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
             this.statsGroup = new System.Windows.Forms.GroupBox();
-            this.oddLabel = new System.Windows.Forms.Label();
-            this.evenLabel = new System.Windows.Forms.Label();
             this.wordCountLabel = new System.Windows.Forms.Label();
             this.unqWordLabel = new System.Windows.Forms.Label();
             this.loadGroup = new System.Windows.Forms.GroupBox();
@@ -92,8 +90,6 @@
             // 
             // statsGroup
             // 
-            this.statsGroup.Controls.Add(this.oddLabel);
-            this.statsGroup.Controls.Add(this.evenLabel);
             this.statsGroup.Controls.Add(this.wordCountLabel);
             this.statsGroup.Controls.Add(this.unqWordLabel);
             this.statsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -103,24 +99,6 @@
             this.statsGroup.TabIndex = 5;
             this.statsGroup.TabStop = false;
             this.statsGroup.Text = "Word Stats";
-            // 
-            // oddLabel
-            // 
-            this.oddLabel.AutoSize = true;
-            this.oddLabel.Location = new System.Drawing.Point(6, 131);
-            this.oddLabel.Name = "oddLabel";
-            this.oddLabel.Size = new System.Drawing.Size(58, 13);
-            this.oddLabel.TabIndex = 3;
-            this.oddLabel.Text = "Odd words";
-            // 
-            // evenLabel
-            // 
-            this.evenLabel.AutoSize = true;
-            this.evenLabel.Location = new System.Drawing.Point(6, 98);
-            this.evenLabel.Name = "evenLabel";
-            this.evenLabel.Size = new System.Drawing.Size(63, 13);
-            this.evenLabel.TabIndex = 2;
-            this.evenLabel.Text = "Even words";
             // 
             // wordCountLabel
             // 
@@ -186,7 +164,7 @@
             // 
             // adjButton
             // 
-            this.adjButton.Location = new System.Drawing.Point(430, 293);
+            this.adjButton.Location = new System.Drawing.Point(430, 288);
             this.adjButton.Name = "adjButton";
             this.adjButton.Size = new System.Drawing.Size(149, 23);
             this.adjButton.TabIndex = 12;
@@ -196,7 +174,7 @@
             // 
             // mostCommonButton
             // 
-            this.mostCommonButton.Location = new System.Drawing.Point(430, 264);
+            this.mostCommonButton.Location = new System.Drawing.Point(430, 259);
             this.mostCommonButton.Name = "mostCommonButton";
             this.mostCommonButton.Size = new System.Drawing.Size(149, 23);
             this.mostCommonButton.TabIndex = 11;
@@ -206,7 +184,7 @@
             // 
             // concordanceButton
             // 
-            this.concordanceButton.Location = new System.Drawing.Point(430, 235);
+            this.concordanceButton.Location = new System.Drawing.Point(430, 230);
             this.concordanceButton.Name = "concordanceButton";
             this.concordanceButton.Size = new System.Drawing.Size(149, 23);
             this.concordanceButton.TabIndex = 10;
@@ -238,7 +216,7 @@
             // 
             // collocButton
             // 
-            this.collocButton.Location = new System.Drawing.Point(127, 177);
+            this.collocButton.Location = new System.Drawing.Point(127, 208);
             this.collocButton.Name = "collocButton";
             this.collocButton.Size = new System.Drawing.Size(80, 49);
             this.collocButton.TabIndex = 13;
@@ -248,7 +226,7 @@
             // 
             // countTextBox
             // 
-            this.countTextBox.Location = new System.Drawing.Point(54, 232);
+            this.countTextBox.Location = new System.Drawing.Point(54, 263);
             this.countTextBox.Name = "countTextBox";
             this.countTextBox.ReadOnly = true;
             this.countTextBox.Size = new System.Drawing.Size(67, 20);
@@ -257,7 +235,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 235);
+            this.label4.Location = new System.Drawing.Point(6, 266);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 14;
@@ -266,7 +244,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 209);
+            this.label3.Location = new System.Drawing.Point(6, 240);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 13;
@@ -275,7 +253,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 183);
+            this.label2.Location = new System.Drawing.Point(6, 214);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 12;
@@ -284,16 +262,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 147);
+            this.label1.Location = new System.Drawing.Point(6, 166);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 26);
+            this.label1.Size = new System.Drawing.Size(197, 39);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Collocation - Count the number of times \r\npair of words appear next to each other" +
-    "";
+            this.label1.Text = "Collocation - Select 2 words from the list \r\nand click to count the number of tim" +
+    "es \r\nthe words appear next to each other";
             // 
             // word2TextBox
             // 
-            this.word2TextBox.Location = new System.Drawing.Point(54, 206);
+            this.word2TextBox.Location = new System.Drawing.Point(54, 237);
             this.word2TextBox.Name = "word2TextBox";
             this.word2TextBox.ReadOnly = true;
             this.word2TextBox.Size = new System.Drawing.Size(67, 20);
@@ -301,7 +279,7 @@
             // 
             // word1TextBox
             // 
-            this.word1TextBox.Location = new System.Drawing.Point(54, 180);
+            this.word1TextBox.Location = new System.Drawing.Point(54, 211);
             this.word1TextBox.Name = "word1TextBox";
             this.word1TextBox.ReadOnly = true;
             this.word1TextBox.Size = new System.Drawing.Size(67, 20);
@@ -368,7 +346,7 @@
             // 
             // sortOccurButton
             // 
-            this.sortOccurButton.Location = new System.Drawing.Point(430, 206);
+            this.sortOccurButton.Location = new System.Drawing.Point(430, 201);
             this.sortOccurButton.Name = "sortOccurButton";
             this.sortOccurButton.Size = new System.Drawing.Size(149, 23);
             this.sortOccurButton.TabIndex = 8;
@@ -378,7 +356,7 @@
             // 
             // delWordButton
             // 
-            this.delWordButton.Location = new System.Drawing.Point(430, 120);
+            this.delWordButton.Location = new System.Drawing.Point(430, 99);
             this.delWordButton.Name = "delWordButton";
             this.delWordButton.Size = new System.Drawing.Size(149, 23);
             this.delWordButton.TabIndex = 7;
@@ -388,7 +366,7 @@
             // 
             // viewButton
             // 
-            this.viewButton.Location = new System.Drawing.Point(430, 33);
+            this.viewButton.Location = new System.Drawing.Point(430, 28);
             this.viewButton.Name = "viewButton";
             this.viewButton.Size = new System.Drawing.Size(149, 23);
             this.viewButton.TabIndex = 6;
@@ -398,7 +376,7 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(430, 62);
+            this.editButton.Location = new System.Drawing.Point(430, 57);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(149, 23);
             this.editButton.TabIndex = 5;
@@ -483,8 +461,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox word2TextBox;
         private System.Windows.Forms.TextBox word1TextBox;
-        private System.Windows.Forms.Label oddLabel;
-        private System.Windows.Forms.Label evenLabel;
     }
 }
 
