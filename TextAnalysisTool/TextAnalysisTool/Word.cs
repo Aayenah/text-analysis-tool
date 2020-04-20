@@ -21,7 +21,6 @@ namespace TextAnalysisTool {
             this.word = word;
         }
 
-
         public string TheWord {
             set { word = value; }
             get { return word; }
