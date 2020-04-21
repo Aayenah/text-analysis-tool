@@ -73,24 +73,28 @@ namespace AVLTestNUnit
         [TestCase] //test tree count
         public void GetTreeCount()
         {
+            //6 items were inserted to tree, should return true
             Assert.AreEqual(6, avl.Count(), "Wrong tree count");
         }
 
         [TestCase] //test tree containing existing node
         public void TreeContains()
         {
+            //w4 was inserted to the tree, should return true
             Assert.IsTrue(avl.Contains(w4));
         }
 
         [TestCase] //test tree containing non-existing node
         public void TreeNonExistingContains()
         {
+            //w7 was not inserted to the tree, should return false
             Assert.IsFalse(avl.Contains(w7));
         }
 
         [TestCase] //test tree count
         public void TreeLeastItem()
         {
+            //Expecting w4 ("Earth") to be leastItem in tree in alphabetical
             Assert.AreEqual(w4, avl.LeastItem(avl.root));
         }
 
