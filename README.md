@@ -9,6 +9,9 @@ A Windows Forms Application that analyses a text file and stores unique words in
 - The user can add new words to the tree.
 - Words can be sorted alphabetically or by the number of occurences.
 
+# Download
+You can download the .exe file from here: https://gofile.io/d/1T3Itx but expect Windows and your anti-virus to give you a lot of warnings about it. I promise it's safe. Also, I included a .txt file to use with the program but you can use any .txt file. 
+
 # Known Flaws
 - When a word gets deleted, the tree does not rebalance itself. After deleting a few words the tree will get unbalanced and inefficient.
 - Search functionality is essentially done in a list which should be done using a tree.
